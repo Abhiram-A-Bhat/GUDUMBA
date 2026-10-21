@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import CookieBanner from "@/components/CookieBanner";
 import { Toaster } from "@/components/ui/Toaster";
+import SupportChatWidget from "@/components/SupportChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -86,6 +87,7 @@ export default function RootLayout({
               <main id="main-content">{children}</main>
               <CookieBanner />
               <Toaster />
+              <SupportChatWidget />
             </CartProvider>
           </AuthProvider>
         </MotionConfig>
