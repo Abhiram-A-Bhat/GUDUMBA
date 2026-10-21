@@ -11,9 +11,9 @@ export const metadata: Metadata = {
 
 export default function OurStoryPage() {
   return (
-    <div className="pt-24 min-h-screen bg-[#050505]">
+    <div className="pt-24 min-h-screen bg-[#100f0d]">
       {/* Hero Banner */}
-      <section className="relative h-[65vh] min-h-[460px] flex items-center justify-center overflow-hidden border-b border-[#1c1c1c]">
+      <section className="relative h-[65vh] min-h-[460px] flex items-center justify-center overflow-hidden border-b border-[#23201a]">
         <Image
           src="/brand/brand_asset_2.jpeg"
           alt="Gudumba Runway Story"
@@ -21,7 +21,7 @@ export default function OurStoryPage() {
           priority
           className="object-cover filter brightness-40 contrast-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#100f0d] via-[#100f0d]/40 to-transparent" />
 
         <div className="relative z-10 text-center max-w-3xl px-6">
           <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.3em] font-bold block mb-4">
@@ -62,7 +62,7 @@ export default function OurStoryPage() {
         </div>
 
         {/* Attitude Block */}
-        <div className="p-8 sm:p-12 bg-[#0c0c0c] border border-[#222] rounded-xs my-12 relative overflow-hidden">
+        <div className="p-8 sm:p-12 bg-[#141310] border border-[#222] rounded-xs my-12 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#c8410a]/5 rounded-full blur-2xl" />
           <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
             The Mindset
@@ -74,7 +74,7 @@ export default function OurStoryPage() {
             <p>You don&apos;t need to prove you&apos;re different. <strong className="text-white">Be different.</strong></p>
             <p>You don&apos;t need to demand respect. <strong className="text-white">Carry yourself like you deserve it.</strong></p>
             <p>You don&apos;t need to follow the crowd. <strong className="text-white">Let the crowd follow.</strong></p>
-            <p className="italic text-[#888] pt-4 border-t border-[#1f1f1f]">
+            <p className="italic text-[#888] pt-4 border-t border-[#26231d]">
               &quot;Because confidence isn&apos;t about being louder than everyone else. It&apos;s about being comfortable standing alone.&quot;
             </p>
           </div>
@@ -89,19 +89,19 @@ export default function OurStoryPage() {
             OUR CODE
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-[#ccc]">
-            <div className="p-4 bg-[#0e0e0e] border border-[#222] flex items-center gap-3">
+            <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
               <span className="text-[#c8410a] font-bold">01</span>
               <span>WORK HARD. STAND TALL.</span>
             </div>
-            <div className="p-4 bg-[#0e0e0e] border border-[#222] flex items-center gap-3">
+            <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
               <span className="text-[#c8410a] font-bold">02</span>
               <span>TAKE RISKS. OWN YOUR CHOICES.</span>
             </div>
-            <div className="p-4 bg-[#0e0e0e] border border-[#222] flex items-center gap-3">
+            <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
               <span className="text-[#c8410a] font-bold">03</span>
               <span>PROTECT YOUR STANDARDS.</span>
             </div>
-            <div className="p-4 bg-[#0e0e0e] border border-[#222] flex items-center gap-3">
+            <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
               <span className="text-[#c8410a] font-bold">04</span>
               <span>NEVER SHRINK TO FIT IN.</span>
             </div>

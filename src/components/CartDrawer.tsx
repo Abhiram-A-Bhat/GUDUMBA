@@ -116,7 +116,7 @@ export default function CartDrawer() {
 
         {/* Checkout status */}
         {items.length > 0 && (
-          <div className="px-5 py-3 bg-[#0e0e0e] border-b border-[#1a1a1a]">
+          <div className="px-5 py-3 bg-[#171512] border-b border-[#1a1a1a]">
             <p className="text-[11px] text-[#b7a89c]">Checkout is offline. Shipping availability has not been confirmed.</p>
           </div>
         )}

@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
     <title>GUDUMBA® — Processing Order</title>
     <meta http-equiv="refresh" content="0; url=${targetUrl}" />
     <style>
-      body { background: #050505; color: #f2f0ed; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+      body { background: #100f0d; color: #f2f0ed; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
     </style>
   </head>
   <body>

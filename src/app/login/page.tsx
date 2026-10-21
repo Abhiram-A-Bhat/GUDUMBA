@@ -145,7 +145,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="pt-28 pb-20 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-28 pb-20 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-md mx-auto px-6 w-full">
         {/* Title */}
         <div className="text-center mb-8">
@@ -171,11 +171,11 @@ export default function LoginPage() {
         </button>
 
         <div className="relative flex py-2 items-center mb-6">
-          <div className="flex-grow border-t border-[#1c1c1c]"></div>
+          <div className="flex-grow border-t border-[#23201a]"></div>
           <span className="flex-shrink mx-4 text-[10px] font-mono text-[#555] uppercase tracking-widest">
             or use
           </span>
-          <div className="flex-grow border-t border-[#1c1c1c]"></div>
+          <div className="flex-grow border-t border-[#23201a]"></div>
         </div>
 
         {/* Method Toggle: Email vs Phone OTP */}

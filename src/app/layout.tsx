@@ -75,7 +75,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${bebasNeue.variable}`}
     >
-      <body className="min-h-screen bg-[#050505] text-[#f2f0ed] antialiased">
+      <body className="min-h-screen bg-[#100f0d] text-[#f2f0ed] antialiased">
         {/* Film grain overlay */}
         <div className="grain-overlay" aria-hidden="true" />
 

@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top Utility Bar */}
-      <div className="bg-[#050505] text-[#777] border-b border-[#151515] text-[10px] uppercase font-mono tracking-[0.25em] py-2 px-6 text-center select-none">
+      <div className="bg-[#100f0d] text-[#777] border-b border-[#23201a] text-[10px] uppercase font-mono tracking-[0.25em] py-2 px-6 text-center select-none">
         <span>COMPLIMENTARY PAN-INDIA SHIPPING ON ORDERS OVER ₹1,999 • DROP 01 ARCHIVE</span>
       </div>
 
@@ -38,8 +38,8 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
           scrolled
-            ? "bg-[#050505]/95 backdrop-blur-md border-[#1a1a1a] py-3"
-            : "bg-[#050505] border-[#151515] py-4"
+            ? "bg-[#100f0d]/95 backdrop-blur-md border-[#1a1a1a] py-3"
+            : "bg-[#100f0d] border-[#23201a] py-4"
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-6 sm:px-12 grid grid-cols-3 items-center">
@@ -121,8 +121,8 @@ export default function Navbar() {
 
       {/* Mobile Drawer Navigation */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-[#050505] flex flex-col p-8 animate-fadeIn">
-          <div className="flex items-center justify-between pb-8 border-b border-[#1c1c1c]">
+        <div className="fixed inset-0 z-50 bg-[#100f0d] flex flex-col p-8 animate-fadeIn">
+          <div className="flex items-center justify-between pb-8 border-b border-[#23201a]">
             <div className="flex items-center gap-3">
               <div className="relative w-7 h-7">
                 <Image
@@ -161,7 +161,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="mt-auto pt-8 border-t border-[#1c1c1c] flex flex-col gap-4 font-mono text-[11px] text-[#666]">
+          <div className="mt-auto pt-8 border-t border-[#23201a] flex flex-col gap-4 font-mono text-[11px] text-[#666]">
             <Link
               href={user ? "/account" : "/login"}
               onClick={() => setMobileOpen(false)}

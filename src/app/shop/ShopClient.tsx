@@ -58,7 +58,7 @@ export default function ShopClient({
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-[1400px] mx-auto px-6 w-full pb-24">
         {/* Header */}
         <div className="mb-12 border-b border-[#222] pb-8">
@@ -149,7 +149,7 @@ export default function ShopClient({
 
         {/* Product Grid */}
         {initialProducts.length === 0 ? (
-          <div className="py-24 text-center border border-[#1a1a1a] bg-[#0c0c0c] rounded-xs">
+          <div className="py-24 text-center border border-[#1a1a1a] bg-[#141310] rounded-xs">
             <p className="text-[#888] text-sm mb-4">
               No garments found matching your filter criteria.
             </p>

@@ -74,19 +74,19 @@ function SuccessContent() {
       </p>
 
       {/* Order Details Card */}
-      <div className="p-6 bg-[#0c0c0c] border border-[#222] rounded-xs text-left font-mono text-xs space-y-3 mb-8">
-        <div className="flex justify-between border-b border-[#1c1c1c] pb-2.5">
+      <div className="p-6 bg-[#141310] border border-[#222] rounded-xs text-left font-mono text-xs space-y-3 mb-8">
+        <div className="flex justify-between border-b border-[#23201a] pb-2.5">
           <span className="text-[#666]">ORDER NUMBER</span>
           <span className="text-[#f2f0ed] font-bold">{orderNumber}</span>
         </div>
-        <div className="flex justify-between border-b border-[#1c1c1c] pb-2.5">
+        <div className="flex justify-between border-b border-[#23201a] pb-2.5">
           <span className="text-[#666]">PAYMENT STATUS</span>
           <span className={status === "cod" ? "text-amber-400 font-bold" : "text-emerald-400 font-bold"}>
             {status === "cod" ? "PENDING (COD)" : "VERIFIED (PAYTM)"}
           </span>
         </div>
         {txnId && (
-          <div className="flex justify-between border-b border-[#1c1c1c] pb-2.5">
+          <div className="flex justify-between border-b border-[#23201a] pb-2.5">
             <span className="text-[#666]">PAYTM TXN ID</span>
             <span className="text-[#aaa] truncate max-w-[200px]">{txnId}</span>
           </div>
@@ -111,7 +111,7 @@ function SuccessContent() {
 
 export default function CheckoutSuccessPage() {
   return (
-    <div className="pt-24 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <main className="w-full">
         <Suspense fallback={<div className="text-center py-20 text-xs text-[#888]">Loading confirmation...</div>}>
           <SuccessContent />

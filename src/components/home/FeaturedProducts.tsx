@@ -34,7 +34,7 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
   return (
     <section className="py-28 px-6 sm:px-12 max-w-[1600px] mx-auto" id="collection">
       {/* Editorial Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#151515] gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#23201a] gap-6">
         <div>
           <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] block mb-3">
             GUDUMBA / FIRST RELEASE

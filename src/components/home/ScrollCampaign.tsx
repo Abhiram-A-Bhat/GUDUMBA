@@ -33,7 +33,7 @@ const items: LookbookItem[] = [
 export default function ScrollCampaign() {
   return (
     <section className="py-32 px-6 sm:px-12 max-w-[1600px] mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-[#151515] gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-6 border-b border-[#23201a] gap-4">
         <div>
           <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] block mb-3">
             EDITORIAL LOOKBOOK // VOL. 01
@@ -55,7 +55,7 @@ export default function ScrollCampaign() {
           <Link
             key={idx}
             href="/shop"
-            className="group relative flex flex-col bg-[#080808] border border-[#151515] overflow-hidden"
+            className="group relative flex flex-col bg-[#080808] border border-[#23201a] overflow-hidden"
           >
             {/* Aspect Ratio 4:5 Large Campaign Picture */}
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0d0d0d]">

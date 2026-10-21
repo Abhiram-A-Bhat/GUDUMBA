@@ -38,7 +38,7 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-24 px-6 bg-[#0c0c0c] border-t border-[#1a1a1a]">
+    <section className="py-24 px-6 bg-[#141310] border-t border-[#1a1a1a]">
       <div className="max-w-2xl mx-auto text-center">
         <span className="text-[#c8410a] text-xs uppercase tracking-[0.25em] font-semibold block mb-3">
           Inner Circle

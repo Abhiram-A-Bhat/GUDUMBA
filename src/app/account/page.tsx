@@ -39,7 +39,7 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="pt-32 min-h-screen bg-[#050505] flex items-center justify-center text-xs font-mono tracking-widest text-[#666]">
+      <div className="pt-32 min-h-screen bg-[#100f0d] flex items-center justify-center text-xs font-mono tracking-widest text-[#666]">
         VERIFYING SESSION...
       </div>
     );
@@ -48,7 +48,7 @@ export default function AccountPage() {
   if (!user) return null;
 
   return (
-    <div className="pt-28 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-28 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-[1200px] mx-auto px-6 py-8 w-full">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#222] pb-8 mb-12 gap-4">
@@ -95,7 +95,7 @@ export default function AccountPage() {
                 FETCHING ORDERS...
               </div>
             ) : orders.length === 0 ? (
-              <div className="p-12 bg-[#0e0e0e] border border-[#222] rounded-xs text-center">
+              <div className="p-12 bg-[#171512] border border-[#222] rounded-xs text-center">
                 <p className="text-sm text-[#888] mb-6">
                   You have not placed any orders yet.
                 </p>
@@ -108,7 +108,7 @@ export default function AccountPage() {
                 {orders.map((ord) => (
                   <div
                     key={ord.id}
-                    className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs"
+                    className="p-6 bg-[#171512] border border-[#222] rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs"
                   >
                     <div>
                       <span className="text-[#f2f0ed] font-bold text-sm block mb-1">
@@ -134,7 +134,7 @@ export default function AccountPage() {
 
           {/* Account Profile info (4 cols) */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+            <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
               <h3 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] mb-4 flex items-center gap-2">
                 <User size={14} className="text-[#c8410a]" /> Customer Security
               </h3>
@@ -150,7 +150,7 @@ export default function AccountPage() {
               </div>
             </div>
 
-            <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+            <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
               <h3 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] mb-2">
                 Privacy & Data Deletion
               </h3>

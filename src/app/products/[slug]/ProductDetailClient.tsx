@@ -80,7 +80,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-[#050505]">
+    <div className="pt-24 min-h-screen bg-[#100f0d]">
       {/* Breadcrumb */}
       <div className="max-w-[1400px] mx-auto px-6 py-4 flex items-center gap-2 text-xs text-[#666] tracking-wider uppercase font-mono">
         <Link href="/" className="hover:text-[#f2f0ed]">Home</Link>
@@ -134,7 +134,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
 
               {/* Tag badges */}
               <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                <span className="bg-[#050505]/90 backdrop-blur-xs text-[#f2f0ed] text-[10px] uppercase tracking-[0.2em] px-3 py-1 font-bold border border-[#333]">
+                <span className="bg-[#100f0d]/90 backdrop-blur-xs text-[#f2f0ed] text-[10px] uppercase tracking-[0.2em] px-3 py-1 font-bold border border-[#333]">
                   {product.category_name || "Drop 01"}
                 </span>
                 {discountPct && (
@@ -163,7 +163,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
             )}
 
             {/* Price */}
-            <div className="flex items-baseline gap-4 py-4 border-y border-[#1f1f1f] mb-6">
+            <div className="flex items-baseline gap-4 py-4 border-y border-[#26231d] mb-6">
               <span className="text-3xl font-bold text-[#f2f0ed]">
                 {formatPrice(product.price)}
               </span>
@@ -259,7 +259,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
             </div>
 
             {/* Value props */}
-            <div className="grid grid-cols-3 gap-2 py-4 border-t border-[#1f1f1f] text-[11px] text-[#888] font-mono">
+            <div className="grid grid-cols-3 gap-2 py-4 border-t border-[#26231d] text-[11px] text-[#888] font-mono">
               <div className="flex items-center gap-1.5">
                 <Truck size={14} className="text-[#c8410a] shrink-0" />
                 <span>Shipping not confirmed</span>
@@ -276,7 +276,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
 
             {/* Bullets / Details */}
             {product.details && product.details.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-[#1f1f1f]">
+              <div className="mt-8 pt-6 border-t border-[#26231d]">
                 <h3 className="text-xs uppercase tracking-widest font-semibold text-[#f2f0ed] mb-4">
                   Garment Specifications
                 </h3>
@@ -295,7 +295,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
 
         {/* Related Drops */}
         {product.related && product.related.length > 0 && (
-          <div className="mt-28 pt-12 border-t border-[#1f1f1f]">
+          <div className="mt-28 pt-12 border-t border-[#26231d]">
             <h2 className="g-display text-3xl sm:text-5xl text-[#f2f0ed] mb-8">
               COMPLETE THE FIT
             </h2>

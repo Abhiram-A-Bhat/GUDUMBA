@@ -53,9 +53,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#050505] text-[#888] border-t border-[#151515] pt-24 pb-12">
+    <footer className="bg-[#100f0d] text-[#888] border-t border-[#23201a] pt-24 pb-12">
       <div className="max-w-[1600px] mx-auto px-6 sm:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-20 border-b border-[#151515]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-20 border-b border-[#23201a]">
           {/* Brand Column with Sigil Logo Artwork */}
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>

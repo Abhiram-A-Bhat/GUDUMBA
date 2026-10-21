@@ -57,7 +57,7 @@ export default async function AdminDashboardPage() {
 
         {/* 4 Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+          <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Gross Value of Paid Orders</span>
               <DollarSign size={16} className="text-[#c8410a]" />
@@ -68,7 +68,7 @@ export default async function AdminDashboardPage() {
             <span className="text-[10px] text-[#555] font-mono mt-1 block">Recorded payment status; refunds excluded</span>
           </div>
 
-          <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+          <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Total Orders</span>
               <Package size={16} className="text-[#c8410a]" />
@@ -79,7 +79,7 @@ export default async function AdminDashboardPage() {
             <span className="text-[10px] text-[#555] font-mono mt-1 block">Across all channels</span>
           </div>
 
-          <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+          <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Unfulfilled Shipments</span>
               <Clock size={16} className="text-[#c8410a]" />
@@ -90,7 +90,7 @@ export default async function AdminDashboardPage() {
             <span className="text-[10px] text-[#555] font-mono mt-1 block">Requires warehouse pick</span>
           </div>
 
-          <div className="p-6 bg-[#0e0e0e] border border-[#222] rounded-xs">
+          <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Active SKUs</span>
               <Users size={16} className="text-[#c8410a]" />
@@ -103,7 +103,7 @@ export default async function AdminDashboardPage() {
         </div>
 
         {/* Recent Orders Table */}
-        <div className="bg-[#0e0e0e] border border-[#222] rounded-xs p-6">
+        <div className="bg-[#171512] border border-[#222] rounded-xs p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-sm font-bold uppercase tracking-widest text-[#f2f0ed]">
               Recent Orders
@@ -128,7 +128,7 @@ export default async function AdminDashboardPage() {
                     <th className="pb-3 font-semibold text-right">TOTAL</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#1c1c1c]">
+                <tbody className="divide-y divide-[#23201a]">
                   {recentOrders.map((ord) => (
                     <tr key={ord.id} className="hover:bg-[#121212] transition-colors">
                       <td className="py-3 text-[#c8410a] font-bold">{ord.order_number}</td>
@@ -142,7 +142,7 @@ export default async function AdminDashboardPage() {
                         </span>
                       </td>
                       <td className="py-3">
-                        <span className="px-2 py-0.5 rounded-xs text-[10px] font-bold bg-[#1f1f1f] text-[#ccc]">
+                        <span className="px-2 py-0.5 rounded-xs text-[10px] font-bold bg-[#26231d] text-[#ccc]">
                           {ord.fulfillment_status}
                         </span>
                       </td>

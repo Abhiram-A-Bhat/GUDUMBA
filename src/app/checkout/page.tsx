@@ -120,7 +120,7 @@ export default function CheckoutPage() {
   };
 
   return (
-    <div className="pt-24 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <main className="max-w-[1200px] mx-auto px-6 py-8 w-full">
         <Link
           href="/shop"
@@ -150,8 +150,8 @@ export default function CheckoutPage() {
               )}
 
               {/* Contact Information */}
-              <div className="p-6 bg-[#0c0c0c] border border-[#222] rounded-xs space-y-4">
-                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#1f1f1f] pb-3">
+              <div className="p-6 bg-[#141310] border border-[#222] rounded-xs space-y-4">
+                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#26231d] pb-3">
                   1. Contact Information
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -198,8 +198,8 @@ export default function CheckoutPage() {
               </div>
 
               {/* Shipping Address */}
-              <div className="p-6 bg-[#0c0c0c] border border-[#222] rounded-xs space-y-4">
-                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#1f1f1f] pb-3">
+              <div className="p-6 bg-[#141310] border border-[#222] rounded-xs space-y-4">
+                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#26231d] pb-3">
                   2. Shipping Address (Pan-India)
                 </h2>
                 <div className="space-y-4">
@@ -274,8 +274,8 @@ export default function CheckoutPage() {
               </div>
 
               {/* Payment Method Selector */}
-              <div className="p-6 bg-[#0c0c0c] border border-[#222] rounded-xs space-y-4">
-                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#1f1f1f] pb-3">
+              <div className="p-6 bg-[#141310] border border-[#222] rounded-xs space-y-4">
+                <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#26231d] pb-3">
                   3. Select Payment Method
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -357,10 +357,10 @@ export default function CheckoutPage() {
 
             {/* Right Column: Order Summary */}
             <aside
-              className="lg:col-span-5 p-6 bg-[#0c0c0c] border border-[#222] rounded-xs h-fit space-y-6"
+              className="lg:col-span-5 p-6 bg-[#141310] border border-[#222] rounded-xs h-fit space-y-6"
               aria-label="Bag summary"
             >
-              <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#1c1c1c] pb-3">
+              <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#23201a] pb-3">
                 Bag Summary ({state.items.reduce((sum, item) => sum + item.quantity, 0)} items)
               </h2>
 
@@ -389,7 +389,7 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
-              <div className="space-y-2.5 border-t border-[#1c1c1c] pt-4 font-mono text-xs">
+              <div className="space-y-2.5 border-t border-[#23201a] pt-4 font-mono text-xs">
                 <div className="flex justify-between text-[#888]">
                   <span>Subtotal</span>
                   <span>{formatPrice(total)}</span>
@@ -403,7 +403,7 @@ export default function CheckoutPage() {
                     Add {formatPrice(2000 - total)} more to unlock free shipping.
                   </p>
                 )}
-                <div className="flex justify-between text-sm font-bold text-[#f2f0ed] border-t border-[#1c1c1c] pt-3">
+                <div className="flex justify-between text-sm font-bold text-[#f2f0ed] border-t border-[#23201a] pt-3">
                   <span>Total Amount</span>
                   <span className="text-[#e88347]">{formatPrice(finalTotal)}</span>
                 </div>

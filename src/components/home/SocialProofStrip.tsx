@@ -67,7 +67,7 @@ export default function SocialProofStrip() {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-[#1f1f1f] flex items-center justify-between text-xs font-mono">
+              <div className="pt-4 border-t border-[#26231d] flex items-center justify-between text-xs font-mono">
                 <div>
                   <span className="text-white font-bold block">{r.user}</span>
                   <span className="text-[#666] text-[10px]">{r.city} • VERIFIED BUYER</span>

@@ -24,7 +24,7 @@ export default async function CollectionsPage() {
   const collections = await getCategoriesWithCounts();
 
   return (
-    <div className="pt-24 min-h-screen bg-[#050505] flex flex-col justify-between">
+    <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-[1400px] mx-auto px-6 py-8 w-full">
         <div className="mb-16 border-b border-[#222] pb-8">
           <span className="text-[#c8410a] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
@@ -45,7 +45,7 @@ export default async function CollectionsPage() {
             <Link
               key={col.id}
               href={`/shop?category=${col.slug}`}
-              className="group relative h-[520px] rounded-xs overflow-hidden border border-[#222] bg-[#0c0c0c] flex flex-col justify-end p-8"
+              className="group relative h-[520px] rounded-xs overflow-hidden border border-[#222] bg-[#141310] flex flex-col justify-end p-8"
             >
               <Image
                 src={col.image_url || "/brand/brand_asset_3.jpeg"}

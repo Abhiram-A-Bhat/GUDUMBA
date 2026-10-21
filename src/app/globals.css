@@ -2,12 +2,12 @@
 
 :root {
   color-scheme: dark;
-  --bg-page: #11100e;
-  --bg-card: #191815;
-  --bg-card-hover: #211f1a;
-  --bg-input: #1c1a16;
-  --border-subtle: #302d27;
-  --border-strong: #49443a;
+  --bg-page: #100f0d;
+  --bg-card: #171512;
+  --bg-card-hover: #1f1d19;
+  --bg-input: #1a1815;
+  --border-subtle: #26231e;
+  --border-strong: #38342c;
   --text-main: #f0eee8;
   --text-muted: #a09b90;
   --text-dim: #716d64;

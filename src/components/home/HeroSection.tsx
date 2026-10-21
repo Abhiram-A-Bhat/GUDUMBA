@@ -8,7 +8,7 @@ export default function HeroSection() {
   const [muted, setMuted] = useState(true);
 
   return (
-    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-[#050505] overflow-hidden border-b border-[#151515] flex flex-col justify-end">
+    <section className="relative w-full min-h-[92vh] lg:min-h-screen bg-[#100f0d] overflow-hidden border-b border-[#23201a] flex flex-col justify-end">
       {/* Background Campaign Video */}
       <video
         src="/brand/campaign_hero.mp4"
@@ -21,7 +21,7 @@ export default function HeroSection() {
       />
 
       {/* Subtle luxury vignette gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/20 to-[#050505]/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#100f0d] via-[#100f0d]/20 to-[#100f0d]/40" />
 
       {/* Floating Audio Toggle in Bottom Right */}
       <button

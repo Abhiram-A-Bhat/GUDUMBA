@@ -86,7 +86,7 @@ export default function SupportChatWidget() {
 
       {/* Chat Window Modal */}
       {isOpen && (
-        <div className="fixed bottom-6 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] h-[520px] max-h-[85vh] bg-[#0c0c0c] border border-[#262626] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-up">
+        <div className="fixed bottom-6 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[380px] h-[520px] max-h-[85vh] bg-[#141310] border border-[#262626] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-fade-up">
           {/* Header */}
           <div className="px-4 py-3.5 bg-[#141414] border-b border-[#222] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
@@ -143,7 +143,7 @@ export default function SupportChatWidget() {
           </div>
 
           {/* Suggested Quick Questions */}
-          <div className="px-3 py-2 bg-[#0e0e0e] border-t border-[#1e1e1e] flex gap-1.5 overflow-x-auto no-scrollbar">
+          <div className="px-3 py-2 bg-[#171512] border-t border-[#1e1e1e] flex gap-1.5 overflow-x-auto no-scrollbar">
             {QUICK_QUESTIONS.map((q, i) => (
               <button
                 key={i}

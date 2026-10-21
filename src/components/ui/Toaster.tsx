@@ -34,7 +34,7 @@ export function Toaster() {
   const colors: Record<ToastType, string> = {
     success: "border-green-700 bg-green-950 text-green-100",
     error: "border-red-700 bg-red-950 text-red-100",
-    info: "border-[#333] bg-[#0e0e0e] text-[#f2f0ed]",
+    info: "border-[#333] bg-[#171512] text-[#f2f0ed]",
   };
 
   return (
