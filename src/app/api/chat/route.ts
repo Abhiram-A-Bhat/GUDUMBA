@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import { getSupabase } from "@/lib/supabase";
 
-const SYSTEM_INSTRUCTION = `You are the GUDUMBA® Streetwear AI Concierge — the official styling, sizing, and customer advisor for Gudumba (India's boldest underground streetwear movement).
+const SYSTEM_INSTRUCTION = `You are the GUDUMBA® Streetwear AI Concierge — the official styling, sizing, and customer advisor for Gudumba (India's boldest underground luxury streetwear movement).
 
 BRAND ETHOS:
 - "Born Different. Stay Unapologetic."
@@ -12,12 +12,12 @@ BRAND ETHOS:
 
 TONE & STYLE:
 - Confident, effortlessly cool, street-smart, authentic.
-- Never sound like a robotic customer service bot. Speak like a luxury streetwear stylist.
-- Keep responses punchy, concise, and helpful (2-4 sentences max per reply unless detailed sizing is requested).
-- Use ₹ (INR) for all prices.
+- Never sound like a robotic customer service bot. Speak like an unapologetic luxury streetwear stylist.
+- Keep responses punchy, concise, and helpful (2-4 sentences max).
+- Always quote prices in ₹ (INR).
 
 STORE POLICIES & SPECS:
-- Sizing: All silhouettes are signature boxy oversized streetwear cuts. Recommend true to size for standard oversized drape, or size down 1 for a more fitted silhouette.
+- Sizing: All silhouettes are signature boxy oversized streetwear cuts (280-350 GSM). Recommend true to size for standard oversized drape, or size down 1 for a more fitted silhouette.
 - Fabrics: Heavyweight 280-350 GSM 100% combed French terry and premium cotton. Pre-shrunk, bio-washed, acid-washed.
 - Shipping: Free delivery across India on orders over ₹2000. Flat ₹99 for orders under ₹2000. Dispatched within 24-48 hours, delivered in 3-5 business days.
 - Returns & Exchanges: 7-day hassle-free replacement or exchange if tags are intact and unworn.
@@ -46,7 +46,8 @@ export async function POST(req: NextRequest) {
           .eq("is_archived", false)
           .limit(8);
         if (products && products.length > 0) {
-          catalogContext = "\n\nCURRENT LIVE PRODUCTS:\n" +
+          catalogContext =
+            "\n\nCURRENT LIVE PRODUCTS:\n" +
             products.map((p) => `- ${p.name} (${p.subtitle}): ₹${p.price} [URL: /products/${p.slug}]`).join("\n");
         }
       }
@@ -55,9 +56,8 @@ export async function POST(req: NextRequest) {
     }
 
     if (!apiKey) {
-      // Graceful brand fallback if API key is not yet pasted in .env.local
       const lastUserMsg = messages[messages.length - 1]?.content?.toLowerCase() || "";
-      let reply = "Stay unapologetic. Our AI styling engine is live — add your GEMINI_API_KEY to .env.local to activate full neural conversation. Sizing tip: our tees and hoodies feature a generous 280-350 GSM boxy cut. Free shipping over ₹2000.";
+      let reply = "Stay unapologetic. Our AI styling engine is live. Sizing tip: our tees and hoodies feature a generous 280-350 GSM boxy cut. Free shipping over ₹2000.";
 
       if (lastUserMsg.includes("size") || lastUserMsg.includes("fit")) {
         reply = "GUDUMBA pieces feature a signature boxy oversized streetwear drape (280-350 GSM). Go true to size for that relaxed drop-shoulder aesthetic, or size down if you prefer a traditional slim fit.";
@@ -72,28 +72,25 @@ export async function POST(req: NextRequest) {
 
     const ai = new GoogleGenAI({ apiKey });
 
-    // Format chat history
-    const conversation = messages.map((m: { role: string; content: string }) => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: m.content }],
-    }));
+    // Format chat history into concise prompt for Interactions API
+    const formattedHistory = messages
+      .slice(-6)
+      .map((m: { role: string; content: string }) => `${m.role === "user" ? "Customer" : "Gudumba Concierge"}: ${m.content}`)
+      .join("\n");
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: conversation,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION + catalogContext,
-        temperature: 0.7,
-        maxOutputTokens: 500,
-      },
+    const prompt = `${SYSTEM_INSTRUCTION}${catalogContext}\n\nCONVERSATION SO FAR:\n${formattedHistory}\n\nGudumba Concierge (respond directly as the concierge):`;
+
+    const interaction = await ai.interactions.create({
+      model: "gemini-3.8-flash",
+      input: prompt,
     });
 
-    const reply = response.text || "Born Different. Stay Unapologetic. How can I hook you up today?";
+    const reply = interaction.output_text || "Born Different. Stay Unapologetic. How can I help you today?";
     return NextResponse.json({ reply });
   } catch (error: any) {
     console.error("Gemini Chat API error:", error);
     return NextResponse.json({
-      reply: "The line got hazy for a second. We're running 100% heavyweight drops — ping us at support@gudumba.in or ask about sizing, drops, and shipping.",
+      reply: "Stay unapologetic. All GUDUMBA pieces feature custom 280-350 GSM heavyweight boxy cuts with free delivery on orders over ₹2000. Ask us about sizing, fabrics, or drops.",
     });
   }
 }
