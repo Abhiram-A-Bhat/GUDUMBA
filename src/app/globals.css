@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg-page: #11100e;
+  --bg-card: #191815;
+  --bg-card-hover: #211f1a;
+  --bg-input: #1c1a16;
+  --border-subtle: #302d27;
+  --border-strong: #49443a;
+  --text-main: #f0eee8;
+  --text-muted: #a09b90;
+  --text-dim: #716d64;
+  --brand-orange: #b59a68;
+  --brand-rust: #8e6e43;
+  --brand-yellow: #d4bd8b;
+  --font-heading: var(--font-bebas);
+  --font-body: var(--font-inter);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-page);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-main);
+  font-family: var(--font-body), Inter, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection { background: #b59a68; color: #11100e; }
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #11100e; }
+::-webkit-scrollbar-thumb { background: #62533c; border-radius: 8px; }
+
+.font-heading {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  letter-spacing: -0.035em;
+  text-transform: none;
+  line-height: .98;
+  font-weight: 400;
+}
+
+.font-display, .g-display {
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif !important;
+  font-weight: 400;
+  letter-spacing: -.035em;
+  line-height: .98;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+}
+
+.btn-luxury-primary, .btn-luxury-outline {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .17em;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn-luxury-primary { color: #171511; background: #c7ae7f; border: 1px solid #c7ae7f; }
+.btn-luxury-primary:hover { background: #d8c69f; border-color: #d8c69f; }
+.btn-luxury-outline { color: #e7e2d7; border: 1px solid #625d52; }
+.btn-luxury-outline:hover { color: #fff; border-color: #c7ae7f; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-inner { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+.marquee-track:hover .marquee-inner { animation-play-state: paused; }
+.luxury-marquee { width: max-content; animation: marquee 42s linear infinite; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid #c7ae7f;
+  outline-offset: 3px;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  cursor: pointer;
+  transition: color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.btn-primary { background: #c7ae7f; color: #171511; }
+.btn-primary:hover { background: #d8c69f; transform: translateY(-1px); }
+.btn-secondary { color: #e7e2d7; border-color: #514b40; background: transparent; }
+.btn-secondary:hover { color: #fff; border-color: #c7ae7f; background: #1a1814; }
+.btn-ghost { color: #e7e2d7; border-color: #514b40; background: transparent; }
+.btn-ghost:hover { border-color: #c7ae7f; color: #fff; }
+
+.marquee-track { border-block: 1px solid #39352c; background: #191713 !important; }
+.marquee-track .text-\[\#fafafa\] { color: #d5c7a9; }
+
+.drawer-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.76); backdrop-filter: blur(8px); z-index: 100; }
+.drawer-panel { position: fixed; inset: 0 0 0 auto; width: min(440px,100vw); background: #171613; border-left: 1px solid #39352c; z-index: 101; display: flex; flex-direction: column; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
