@@ -9,6 +9,7 @@ import CartDrawer from "@/components/CartDrawer";
 import CookieBanner from "@/components/CookieBanner";
 import { Toaster } from "@/components/ui/Toaster";
 import SupportChatWidget from "@/components/SupportChatWidget";
+import VersionSwitcher from "@/components/VersionSwitcher";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -88,6 +89,7 @@ export default function RootLayout({
               <CookieBanner />
               <Toaster />
               <SupportChatWidget />
+              <VersionSwitcher />
             </CartProvider>
           </AuthProvider>
         </MotionConfig>
