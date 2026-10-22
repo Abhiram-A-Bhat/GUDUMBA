@@ -24,7 +24,7 @@ STORE POLICIES & SPECS:
 
 // Intelligent Concierge Knowledge Base (Zero-Fail Guarantee)
 function getIntelligentBrandResponse(query: string, catalogContext: string): string {
-  const q = query.toLowerCase();
+  const q = (query || "").toLowerCase();
 
   if (q.includes("fabric") || q.includes("gsm") || q.includes("material") || q.includes("cotton") || q.includes("quality")) {
     return "Every GUDUMBA drop is built like armor. Our tees use 280–300 GSM 100% combed compact cotton, while our hoodies are cut from 450 GSM ultra-heavyweight brushed French terry. Pre-shrunk, bio-washed, and acid-distressed so the drape never loses its shape.";
@@ -38,7 +38,7 @@ function getIntelligentBrandResponse(query: string, catalogContext: string): str
     return "Born Different. Stay Unapologetic. We exist for the ones who refuse to shrink to fit in. The world will always call you too loud, too bold, too chaotic — we say so what? We build raw, unapologetic armor for men who walk their own path. No validation. No imitation. No apologies.";
   }
 
-  if (q.includes("size") || q.includes("fit") || q.includes("chart") || q.includes("measurement") || q.includes("large") || q.includes("medium")) {
+  if (q.includes("siz") || q.includes("fit") || q.includes("chart") || q.includes("guide") || q.includes("measurement") || q.includes("large") || q.includes("medium")) {
     return "Our silhouettes feature our signature boxy drop-shoulder streetwear cut. Go true to size for that relaxed, slouchy editorial drape. If you prefer a tailored, traditional fit, size down by one.";
   }
 
@@ -58,17 +58,23 @@ function getIntelligentBrandResponse(query: string, catalogContext: string): str
 }
 
 export async function POST(req: NextRequest) {
+  let lastUserMsg = "";
+  let catalogContext = "";
+
   try {
     const { messages } = await req.json();
     if (!messages || !Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json({ error: "Messages array required" }, { status: 400 });
     }
 
-    const lastUserMsg = messages[messages.length - 1]?.content || "";
-    const apiKey = process.env.GEMINI_API_KEY?.trim();
+    // Extract the latest user query
+    const userMessages = messages.filter((m: any) => m && m.role === "user");
+    lastUserMsg = userMessages[userMessages.length - 1]?.content || messages[messages.length - 1]?.content || "";
+
+    const groqApiKey = process.env.GROQ_API_KEY?.trim();
+    const geminiApiKey = process.env.GEMINI_API_KEY?.trim();
 
     // Fetch live product names & prices for rich catalog context
-    let catalogContext = "";
     try {
       const supabase = getSupabase();
       if (supabase) {
@@ -86,83 +92,104 @@ export async function POST(req: NextRequest) {
       // catalog context fallback
     }
 
-    // If no valid API key, return immediate intelligent brand response
-    if (!apiKey) {
-      const reply = getIntelligentBrandResponse(lastUserMsg, catalogContext);
-      return NextResponse.json({ reply });
-    }
+    // 1. FAST PRIMARY ENGINE: Groq Ultra-Low Latency LLM (if configured)
+    if (groqApiKey) {
+      const groqModels = ["qwen/qwen3.8-27b", "openai/gpt-oss-20b", "openai/gpt-oss-120b"];
 
-    // Ensure conversation starts with user turn and alternates correctly
-    const filteredMessages = messages.filter((m: any) => m && m.content && m.content.trim());
-    const firstUserIndex = filteredMessages.findIndex((m: any) => m.role === "user");
-    const validHistory = firstUserIndex !== -1 ? filteredMessages.slice(firstUserIndex) : [{ role: "user", content: lastUserMsg }];
+      const groqMessages = [
+        { role: "system", content: SYSTEM_INSTRUCTION + catalogContext },
+        ...messages
+          .filter((m: any) => m && m.content && m.content.trim())
+          .map((m: any) => ({
+            role: m.role === "assistant" || m.role === "model" ? "assistant" : "user",
+            content: m.content,
+          })),
+      ];
 
-    const formattedContents = validHistory.map((m: any) => ({
-      role: m.role === "assistant" || m.role === "model" ? "model" : "user",
-      parts: [{ text: m.content }],
-    }));
-
-    // Multi-tier Gemini model execution with REST fallback
-    const modelsToTry = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"];
-
-    for (const modelName of modelsToTry) {
-      try {
-        const restRes = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`,
-          {
+      for (const model of groqModels) {
+        try {
+          const groqRes = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Authorization": `Bearer ${groqApiKey}`,
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify({
-              contents: formattedContents,
-              systemInstruction: {
-                parts: [{ text: SYSTEM_INSTRUCTION + catalogContext }],
-              },
-              generationConfig: {
-                temperature: 0.7,
-                maxOutputTokens: 500,
-              },
+              model,
+              messages: groqMessages,
+              temperature: 0.7,
+              max_tokens: 400,
             }),
-          }
-        );
+          });
 
-        if (restRes.ok) {
-          const restData = await restRes.json();
-          const generatedText = restData.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (generatedText) {
-            return NextResponse.json({ reply: generatedText.trim() });
+          if (groqRes.ok) {
+            const data = await groqRes.json();
+            let replyText = data.choices?.[0]?.message?.content;
+            if (replyText) {
+              replyText = replyText.replace(/<think>[\s\S]*?<\/think>/g, "").trim();
+              if (replyText) {
+                return NextResponse.json({ reply: replyText });
+              }
+            }
           }
+        } catch (groqErr) {
+          console.warn(`Groq model ${model} attempt error:`, groqErr);
         }
-      } catch (err) {
-        console.warn(`Model ${modelName} attempt failed:`, err);
       }
     }
 
-    // Try @google/genai SDK fallback
-    try {
-      const { GoogleGenAI } = await import("@google/genai");
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: formattedContents,
-        config: {
-          systemInstruction: SYSTEM_INSTRUCTION + catalogContext,
-          temperature: 0.7,
-        },
-      });
+    // 2. SECONDARY ENGINE: Gemini API (if configured)
+    if (geminiApiKey) {
+      const filteredMessages = messages.filter((m: any) => m && m.content && m.content.trim());
+      const firstUserIndex = filteredMessages.findIndex((m: any) => m.role === "user");
+      const validHistory = firstUserIndex !== -1 ? filteredMessages.slice(firstUserIndex) : [{ role: "user", content: lastUserMsg }];
 
-      if (response.text) {
-        return NextResponse.json({ reply: response.text.trim() });
+      const formattedContents = validHistory.map((m: any) => ({
+        role: m.role === "assistant" || m.role === "model" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+
+      const geminiModels = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"];
+
+      for (const modelName of geminiModels) {
+        try {
+          const restRes = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${geminiApiKey}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                contents: formattedContents,
+                systemInstruction: {
+                  parts: [{ text: SYSTEM_INSTRUCTION + catalogContext }],
+                },
+                generationConfig: {
+                  temperature: 0.7,
+                  maxOutputTokens: 500,
+                },
+              }),
+            }
+          );
+
+          if (restRes.ok) {
+            const restData = await restRes.json();
+            const generatedText = restData.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (generatedText) {
+              return NextResponse.json({ reply: generatedText.trim() });
+            }
+          }
+        } catch (err) {
+          console.warn(`Gemini model ${modelName} attempt error:`, err);
+        }
       }
-    } catch (sdkErr) {
-      console.warn("GoogleGenAI SDK attempt warning:", sdkErr);
     }
 
-    // Seamless Intelligent Fallback if API key has quota/network issues
+    // 3. ZERO-FAIL INTELLIGENT BRAND ENGINE
     const fallbackReply = getIntelligentBrandResponse(lastUserMsg, catalogContext);
     return NextResponse.json({ reply: fallbackReply });
   } catch (error: any) {
     console.error("Chat API processing error:", error);
-    const fallbackReply = getIntelligentBrandResponse("", "");
+    const fallbackReply = getIntelligentBrandResponse(lastUserMsg, catalogContext);
     return NextResponse.json({ reply: fallbackReply });
   }
 }
