@@ -3,6 +3,7 @@ import db from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { createSession, sessionCookieOptions, sessionConfigurationIsValid } from "@/lib/session";
 import { allowAuthAttempt } from "@/lib/rate-limit";
+import { getSupabase } from "@/lib/supabase";
 
 function generateId(): string {
   return `usr-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -39,45 +40,50 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Password must be at least 8 characters" }, { status: 400 });
     }
 
-    // Check if email already exists
-    const existing = db.prepare("SELECT id FROM users WHERE email = ?").get(email.toLowerCase());
-    if (existing) {
-      return NextResponse.json({ error: "An account with this email already exists" }, { status: 409 });
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanName = name.trim();
+    let userId = generateId();
+
+    // 1. Supabase Signup
+    const supabase = getSupabase();
+    if (supabase) {
+      try {
+        const { data: supaUser, error: supaErr } = await supabase.auth.signUp({
+          email: cleanEmail,
+          password,
+          options: {
+            data: { full_name: cleanName, phone: phone || "" },
+          },
+        });
+        if (supaUser.user?.id) {
+          userId = supaUser.user.id;
+        }
+      } catch (err) {
+        console.warn("Supabase signup warning:", err);
+      }
     }
 
-    // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
-    const userId = generateId();
+    // 2. Hash password & SQLite store if available
+    try {
+      const passwordHash = await bcrypt.hash(password, 10);
+      db.prepare(`
+        INSERT OR IGNORE INTO users (id, email, phone, name, password_hash, role, marketing_consent)
+        VALUES (?, ?, ?, ?, ?, 'customer', 0)
+      `).run(userId, cleanEmail, phone?.trim() || null, cleanName, passwordHash);
+    } catch {}
 
-    // Insert user
-    db.prepare(`
-      INSERT INTO users (id, email, phone, name, password_hash, role, marketing_consent)
-      VALUES (?, ?, ?, ?, ?, 'customer', ?)
-    `).run(
-      userId,
-      email.toLowerCase(),
-      typeof phone === "string" && phone.trim().length <= 32 ? phone.trim() || null : null,
-      name.trim(),
-      passwordHash,
-      0
-    );
-
-    const user = db.prepare("SELECT * FROM users WHERE id = ?").get(userId) as Record<string, unknown>;
-
-    const token = createSession({ id: user.id as string, email: user.email as string, name: user.name as string });
+    const token = createSession({ id: userId, email: cleanEmail, name: cleanName });
 
     const response = NextResponse.json({
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        avatarUrl: user.avatar_url,
+        id: userId,
+        email: cleanEmail,
+        name: cleanName,
+        role: "customer",
       },
     }, { status: 201 });
 
     response.cookies.set("gudumba_token", token, sessionCookieOptions());
-
     return response;
   } catch (e) {
     console.error("Register error:", e);

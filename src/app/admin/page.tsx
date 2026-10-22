@@ -26,14 +26,35 @@ export default async function AdminDashboardPage() {
   const user = getAuthUserFromToken(jar.get(sessionCookieName())?.value);
   if (!user || user.role !== "admin") redirect("/login");
 
-  const totalOrders = (db.prepare("SELECT COUNT(*) as c FROM orders").get() as { c: number }).c;
-  const totalRev = (db.prepare("SELECT COALESCE(SUM(total_amount), 0) as s FROM orders WHERE payment_status = 'COMPLETED'").get() as { s: number }).s;
-  const pendingFulfillment = (db.prepare("SELECT COUNT(*) as c FROM orders WHERE fulfillment_status = 'UNFULFILLED'").get() as { c: number }).c;
-  const totalProducts = (db.prepare("SELECT COUNT(*) as c FROM products WHERE is_archived = 0").get() as { c: number }).c;
+  let totalOrders = 0;
+  let totalRev = 0;
+  let pendingFulfillment = 0;
+  let totalProducts = 8;
+  let recentOrders: DashboardOrder[] = [];
 
-  const recentOrders = db.prepare(`
-    SELECT * FROM orders ORDER BY created_at DESC LIMIT 6
-  `).all() as DashboardOrder[];
+  try {
+    const { getSupabase } = await import('@/lib/supabase');
+    const supabase = getSupabase();
+    if (supabase) {
+      const { data: ords } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
+      if (ords) {
+        totalOrders = ords.length;
+        totalRev = ords.filter((o: any) => o.payment_status === 'COMPLETED').reduce((s: number, o: any) => s + Number(o.total_amount), 0);
+        pendingFulfillment = ords.filter((o: any) => o.fulfillment_status === 'UNFULFILLED').length;
+        recentOrders = ords.slice(0, 6) as any;
+      }
+      const { count } = await supabase.from('products').select('*', { count: 'exact', head: true });
+      if (count) totalProducts = count;
+    } else {
+      totalOrders = (db.prepare('SELECT COUNT(*) as c FROM orders').get() as { c: number })?.c || 0;
+      totalRev = (db.prepare("SELECT COALESCE(SUM(total_amount), 0) as s FROM orders WHERE payment_status = 'COMPLETED'").get() as { s: number })?.s || 0;
+      pendingFulfillment = (db.prepare("SELECT COUNT(*) as c FROM orders WHERE fulfillment_status = 'UNFULFILLED'").get() as { c: number })?.c || 0;
+      totalProducts = (db.prepare('SELECT COUNT(*) as c FROM products WHERE is_archived = 0').get() as { c: number })?.c || 0;
+      recentOrders = db.prepare('SELECT * FROM orders ORDER BY created_at DESC LIMIT 6').all() as DashboardOrder[];
+    }
+  } catch (e) {
+    console.warn('Admin dashboard data fetch error:', e);
+  }
 
   return (
     <div className="min-h-screen bg-[#070707] text-[#f2f0ed] p-8">

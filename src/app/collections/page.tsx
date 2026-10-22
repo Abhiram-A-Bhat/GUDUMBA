@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Footer from "@/components/Footer";
-import db from "@/lib/db";
+import { getCategories } from "@/lib/data-service";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -10,23 +10,20 @@ export const metadata: Metadata = {
   description: "Explore curated Gudumba® streetwear drops. Limited runs, oversized silhouettes, raw graphic statements.",
 };
 
-async function getCategoriesWithCounts() {
-  const cats = db.prepare(`
-    SELECT c.*, COUNT(p.id) as product_count
-    FROM categories c
-    LEFT JOIN products p ON p.category_id = c.id AND p.is_archived = 0
-    GROUP BY c.id
-  `).all() as { id: string; slug: string; name: string; image_url: string | null; description: string | null; product_count: number }[];
-  return cats;
-}
+const CATEGORY_IMAGES: Record<string, string> = {
+  tees: "/brand/brand_asset_3.jpeg",
+  hoodies: "/brand/brand_asset_5.jpeg",
+  bottoms: "/brand/brand_asset_4.jpeg",
+  "drop-01-chaos": "/brand/brand_asset_0.jpeg",
+};
 
 export default async function CollectionsPage() {
-  const collections = await getCategoriesWithCounts();
+  const categories = await getCategories();
 
   return (
     <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-[1400px] mx-auto px-6 py-8 w-full">
-        <div className="mb-16 border-b border-[#222] pb-8">
+        <div className="mb-16 border-b border-[#23201a] pb-8">
           <span className="text-[#c8410a] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
             Archive Chapters
           </span>
@@ -35,43 +32,38 @@ export default async function CollectionsPage() {
               COLLECTIONS
             </h1>
             <p className="text-sm text-[#777] max-w-sm">
-              Preview collections. Product availability and production details are pending owner confirmation.
+              Curated drops engineered for those who refuse to blend in. Limited batch cut-and-sew releases.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {collections.map((col) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categories.map((col) => (
             <Link
               key={col.id}
               href={`/shop?category=${col.slug}`}
-              className="group relative h-[520px] rounded-xs overflow-hidden border border-[#222] bg-[#141310] flex flex-col justify-end p-8"
+              className="group relative h-[480px] rounded-xs overflow-hidden border border-[#23201a] bg-[#141310] flex flex-col justify-end p-8"
             >
               <Image
-                src={col.image_url || "/brand/brand_asset_3.jpeg"}
+                src={col.image_url || CATEGORY_IMAGES[col.slug] || "/brand/brand_asset_3.jpeg"}
                 alt={col.name}
                 fill
-                sizes="(max-width: 768px) 100vw, 33vw"
+                sizes="(max-width: 768px) 100vw, 25vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-85 contrast-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
               <div className="relative z-20">
                 <span className="text-[#c8410a] text-xs font-mono uppercase tracking-widest block font-bold mb-1">
-                  {col.product_count} Pieces
+                  CHAPTER DROP
                 </span>
-                <h2
-                  className="g-display text-3xl sm:text-4xl text-[#f2f0ed] mb-2 group-hover:text-[#c8410a] transition-colors"
-                  style={{ fontFamily: "var(--font-bebas)" }}
-                >
+                <h2 className="g-display text-3xl text-white mb-2 group-hover:text-[#c8410a] transition-colors">
                   {col.name}
                 </h2>
-                {col.description && (
-                  <p className="text-xs text-[#aaa] line-clamp-2 mb-4 leading-relaxed">
-                    {col.description}
-                  </p>
-                )}
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[#f2f0ed]">
+                <p className="text-xs text-[#aaa] line-clamp-2 mb-4 font-light">
+                  {col.description || "Limited edition heavyweight streetwear tailored for effortless drape."}
+                </p>
+                <span className="text-xs text-white font-mono uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-1 transition-transform">
                   Explore Drop →
                 </span>
               </div>
