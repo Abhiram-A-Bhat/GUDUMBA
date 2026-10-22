@@ -14,14 +14,14 @@ function SuccessContent() {
   const txnId = searchParams.get("txnid");
   const reason = searchParams.get("reason");
 
-  const isSuccess = status === "success" || status === "cod";
+  const isSuccess = status === "success" || status === "cod" || status === "youpi";
 
   useEffect(() => {
     if (isSuccess) {
       try {
         confetti({
-          particleCount: 100,
-          spread: 70,
+          particleCount: 120,
+          spread: 80,
           origin: { y: 0.6 },
           colors: ["#c8410a", "#f2f0ed", "#333333", "#e88347"],
         });
@@ -70,11 +70,13 @@ function SuccessContent() {
       <p className="text-xs text-[#888] max-w-md mx-auto mb-8 leading-relaxed">
         {status === "cod"
           ? "Your Cash on Delivery order is confirmed and queued for packing. Have cash or UPI ready at doorstep."
+          : status === "youpi"
+          ? "Direct UPI payment verified via YouPI-PG. Your heavyweight Gudumba streetwear piece is officially locked in."
           : "Payment verified via Paytm Gateway. Your heavyweight Gudumba streetwear piece is officially locked in."}
       </p>
 
       {/* Order Details Card */}
-      <div className="p-6 bg-[#141310] border border-[#222] rounded-xs text-left font-mono text-xs space-y-3 mb-8">
+      <div className="p-6 bg-[#141310] border border-[#23201a] rounded-xs text-left font-mono text-xs space-y-3 mb-8">
         <div className="flex justify-between border-b border-[#23201a] pb-2.5">
           <span className="text-[#666]">ORDER NUMBER</span>
           <span className="text-[#f2f0ed] font-bold">{orderNumber}</span>
@@ -82,12 +84,12 @@ function SuccessContent() {
         <div className="flex justify-between border-b border-[#23201a] pb-2.5">
           <span className="text-[#666]">PAYMENT STATUS</span>
           <span className={status === "cod" ? "text-amber-400 font-bold" : "text-emerald-400 font-bold"}>
-            {status === "cod" ? "PENDING (COD)" : "VERIFIED (PAYTM)"}
+            {status === "cod" ? "PENDING (COD)" : status === "youpi" ? "VERIFIED (DIRECT UPI)" : "VERIFIED (PAYTM)"}
           </span>
         </div>
         {txnId && (
           <div className="flex justify-between border-b border-[#23201a] pb-2.5">
-            <span className="text-[#666]">PAYTM TXN ID</span>
+            <span className="text-[#666]">{status === "youpi" ? "UPI UTR / REF" : "PAYTM TXN ID"}</span>
             <span className="text-[#aaa] truncate max-w-[200px]">{txnId}</span>
           </div>
         )}
