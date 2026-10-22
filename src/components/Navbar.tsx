@@ -18,12 +18,19 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
+  const desktopNavLinks = [
+    { label: "SHOP", href: "/shop" },
+    { label: "COLLECTIONS", href: "/collections" },
+    { label: "OUR STORY", href: "/our-story" },
+  ];
+
+  const mobileNavLinks = [
     { label: "SHOP ALL", href: "/shop" },
     { label: "TEES", href: "/shop?category=tees" },
     { label: "HOODIES", href: "/shop?category=hoodies" },
     { label: "CARGOS", href: "/shop?category=bottoms" },
     { label: "BOMBERS", href: "/shop?category=drop-01-chaos" },
+    { label: "COLLECTIONS", href: "/collections" },
     { label: "OUR STORY", href: "/our-story" },
   ];
 
@@ -34,7 +41,7 @@ export default function Navbar() {
         <span>COMPLIMENTARY PAN-INDIA SHIPPING ON ORDERS OVER ₹1,999 • DROP 01 ARCHIVE</span>
       </div>
 
-      {/* 3-Column Luxury Navigation Bar (Represent / Fear of God architecture) */}
+      {/* 3-Zone Luxury Navigation Bar (Strict Anti-Collision Architecture) */}
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
           scrolled
@@ -42,33 +49,34 @@ export default function Navbar() {
             : "bg-[#100f0d] border-[#23201a] py-4"
         }`}
       >
-        <div className="max-w-[1600px] mx-auto px-6 sm:px-12 grid grid-cols-3 items-center">
-          {/* Column 1 (Left): Category Navigation */}
-          <nav className="hidden lg:flex items-center gap-7">
-            {navLinks.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className="text-[11px] font-semibold tracking-[0.18em] text-[#888] hover:text-[#f5f5f5] transition-colors whitespace-nowrap"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+        <div className="max-w-[1600px] mx-auto px-6 sm:px-12 flex items-center justify-between">
+          {/* Zone 1 (Left): Curated Desktop Category Links / Mobile Hamburger */}
+          <div className="flex-1 flex items-center justify-start min-w-0">
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {desktopNavLinks.map((item) => (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="text-[11px] font-semibold tracking-[0.2em] text-[#888] hover:text-[#f5f5f5] transition-colors whitespace-nowrap"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
 
-          {/* Left Mobile Menu Toggle */}
-          <div className="lg:hidden flex items-center">
-            <button
-              onClick={() => setMobileOpen(true)}
-              className="p-1.5 text-[#888] hover:text-white"
-              aria-label="Open Navigation"
-            >
-              <Menu size={20} strokeWidth={1.5} />
-            </button>
+            <div className="lg:hidden flex items-center">
+              <button
+                onClick={() => setMobileOpen(true)}
+                className="p-1.5 text-[#888] hover:text-white transition-colors"
+                aria-label="Open Navigation"
+              >
+                <Menu size={20} strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
 
-          {/* Column 2 (Center): Perfectly Centered GUDUMBA Brand Emblem + Wordmark */}
-          <div className="flex items-center justify-center">
+          {/* Zone 2 (Center): Perfectly Centered GUDUMBA Brand Emblem + Wordmark */}
+          <div className="shrink-0 px-6 sm:px-10 flex items-center justify-center">
             <Link href="/" className="flex items-center gap-3 group shrink-0">
               <div className="relative w-8 h-8 sm:w-9 sm:h-9">
                 <Image
@@ -87,8 +95,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Column 3 (Right): Clean Utilities */}
-          <div className="flex items-center justify-end gap-5 sm:gap-6 text-[#888]">
+          {/* Zone 3 (Right): Clean Utilities */}
+          <div className="flex-1 flex items-center justify-end gap-5 sm:gap-6 text-[#888]">
             <Link
               href="/shop"
               className="hover:text-white transition-colors hidden sm:block p-1"
@@ -147,8 +155,8 @@ export default function Navbar() {
             </button>
           </div>
 
-          <div className="flex flex-col gap-7 py-12">
-            {navLinks.map((item) => (
+          <div className="flex flex-col gap-6 py-10 overflow-y-auto">
+            {mobileNavLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
