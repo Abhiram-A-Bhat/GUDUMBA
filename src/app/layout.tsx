@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
+import { WishlistProvider } from "@/lib/wishlist-context";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import CookieBanner from "@/components/CookieBanner";
@@ -82,15 +83,17 @@ export default function RootLayout({
 
         <MotionConfig reducedMotion="user">
           <AuthProvider>
-            <CartProvider>
-              <Navbar />
-              <CartDrawer />
-              <main id="main-content">{children}</main>
-              <CookieBanner />
-              <Toaster />
-              <SupportChatWidget />
-              <VersionSwitcher />
-            </CartProvider>
+            <WishlistProvider>
+              <CartProvider>
+                <Navbar />
+                <CartDrawer />
+                <main id="main-content">{children}</main>
+                <CookieBanner />
+                <Toaster />
+                <SupportChatWidget />
+                <VersionSwitcher />
+              </CartProvider>
+            </WishlistProvider>
           </AuthProvider>
         </MotionConfig>
       </body>

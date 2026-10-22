@@ -5,6 +5,8 @@ import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";
 import { useToast } from "@/components/ui/Toaster";
+import { Heart } from "lucide-react";
+import { useWishlist } from "@/lib/wishlist-context";
 
 export interface ProductCardProps {
   product: {
@@ -26,8 +28,17 @@ export interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { dispatch } = useCart();
   const { toast } = useToast();
+  const { hasSaved, toggle } = useWishlist();
   const variants = product.variants || [];
   const [isHovered, setIsHovered] = useState(false);
+  const isSaved = hasSaved(product.id);
+
+  const handleWishlist = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggle(product);
+    toast(isSaved ? "Removed from wishlist" : "Saved to wishlist", "success");
+  };
 
   const handleQuickAdd = (e: React.MouseEvent, size: string) => {
     e.preventDefault();
@@ -88,6 +99,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
 
        </Link>
+        <button type="button" onClick={handleWishlist} aria-pressed={isSaved} aria-label={isSaved ? `Remove ${product.name} from wishlist` : `Save ${product.name} to wishlist`} className="absolute right-3 top-3 z-30 grid h-9 w-9 place-items-center border border-white/40 bg-black/55 text-white backdrop-blur-sm transition hover:border-[#b59a68] hover:text-[#d4bd8b]">
+          <Heart size={16} fill={isSaved ? "currentColor" : "none"} className={isSaved ? "text-[#d4bd8b]" : ""} />
+        </button>
         {variants.length > 0 && <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-20 transition-all duration-300 flex flex-col gap-1.5 sm:translate-y-2 sm:opacity-0 sm:pointer-events-none sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:group-hover:pointer-events-auto sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100 sm:group-focus-within:pointer-events-auto">
           <span className="text-[9px] font-mono tracking-widest text-[#aaa] uppercase text-center">Quick add size</span>
           <div className="flex items-center justify-center gap-1.5 flex-wrap">

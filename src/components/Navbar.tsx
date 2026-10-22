@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingBag, Search, User, Menu, X } from "lucide-react";
+import { ShoppingBag, Search, User, Menu, X, Heart } from "lucide-react";
 import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
+import { useWishlist } from "@/lib/wishlist-context";
 
 export default function Navbar() {
   const { count, dispatch, state } = useCart();
   const { user } = useAuth();
+  const { ids: savedIds } = useWishlist();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -26,6 +28,7 @@ export default function Navbar() {
 
   const mobileNavLinks = [
     { label: "SHOP ALL", href: "/shop" },
+    { label: "WISHLIST", href: "/wishlist" },
     { label: "TEES", href: "/shop?category=tees" },
     { label: "HOODIES", href: "/shop?category=hoodies" },
     { label: "CARGOS", href: "/shop?category=bottoms" },
@@ -100,6 +103,11 @@ export default function Navbar() {
               aria-label="Search Collection"
             >
               <Search size={17} strokeWidth={1.5} />
+            </Link>
+
+            <Link href="/wishlist" className="relative p-1 transition-colors hover:text-[#c5a970]" aria-label={`Wishlist (${savedIds.length})`}>
+              <Heart size={17} strokeWidth={1.5} />
+              {savedIds.length > 0 && <span className="absolute -right-1 -top-1 min-w-4 rounded-full bg-[#b59a68] px-1 text-center font-mono text-[8px] leading-4 text-[#100f0d]">{savedIds.length}</span>}
             </Link>
 
             <Link
