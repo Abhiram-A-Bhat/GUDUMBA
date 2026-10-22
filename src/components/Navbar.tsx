@@ -7,7 +7,7 @@ import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth-context";
 
 export default function Navbar() {
-  const { count, dispatch } = useCart();
+  const { count, dispatch, state } = useCart();
   const { user } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top Utility Bar */}
-      <div className="bg-[#100f0d] text-[#777] border-b border-[#23201a] text-[10px] uppercase font-mono tracking-[0.25em] py-2 px-6 text-center select-none">
+      <div className="border-b border-[#8d744f]/40 bg-[#0b0a08] px-4 py-2 text-center font-mono text-[8px] uppercase tracking-[0.2em] text-[#c4ad7c] select-none sm:text-[9px] sm:tracking-[0.27em]">
         <span>COMPLIMENTARY PAN-INDIA SHIPPING ON ORDERS OVER ₹1,999 • DROP 01 ARCHIVE</span>
       </div>
 
@@ -45,8 +45,8 @@ export default function Navbar() {
       <header
         className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
           scrolled
-            ? "bg-[#100f0d]/95 backdrop-blur-md border-[#1a1a1a] py-3"
-            : "bg-[#100f0d] border-[#23201a] py-4"
+            ? "bg-[#0b0a08]/95 backdrop-blur-md border-[#8d744f]/50 py-3"
+            : "bg-[#0b0a08] border-[#8d744f]/50 py-3.5"
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-6 sm:px-12 flex items-center justify-between">
@@ -57,7 +57,7 @@ export default function Navbar() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-[11px] font-semibold tracking-[0.2em] text-[#888] hover:text-[#f5f5f5] transition-colors whitespace-nowrap"
+                className="whitespace-nowrap font-mono text-[9px] tracking-[0.22em] text-[#c5bfb4] transition-colors hover:text-[#c5a970]"
                 >
                   {item.label}
                 </Link>
@@ -86,20 +86,17 @@ export default function Navbar() {
                   className="object-contain filter brightness-110 group-hover:scale-105 transition-transform"
                 />
               </div>
-              <span
-                className="font-display text-2xl sm:text-3xl tracking-[0.25em] text-[#f5f5f5] transition-opacity group-hover:opacity-80 block whitespace-nowrap"
-                style={{ fontFamily: "var(--font-bebas), impact, sans-serif" }}
-              >
+              <span className="block whitespace-nowrap font-display text-[22px] tracking-[-0.045em] text-[#f0ece4] transition-opacity group-hover:opacity-80 sm:text-[27px]">
                 GUDUMBA
               </span>
             </Link>
           </div>
 
           {/* Zone 3 (Right): Clean Utilities */}
-          <div className="flex-1 flex items-center justify-end gap-5 sm:gap-6 text-[#888]">
+          <div className="flex-1 flex items-center justify-end gap-3 text-[#c5bfb4] sm:gap-5">
             <Link
               href="/shop"
-              className="hover:text-white transition-colors hidden sm:block p-1"
+                className="hidden p-1 transition-colors hover:text-[#c5a970] sm:block"
               aria-label="Search Collection"
             >
               <Search size={17} strokeWidth={1.5} />
@@ -107,19 +104,22 @@ export default function Navbar() {
 
             <Link
               href={user ? "/account" : "/login"}
-              className="hover:text-white transition-colors p-1"
+              className="p-1 transition-colors hover:text-[#c5a970]"
               aria-label={user ? "Account" : "Sign In"}
             >
               <User size={17} strokeWidth={1.5} />
             </Link>
 
             <button
+              type="button"
               onClick={() => dispatch({ type: "OPEN_DRAWER" })}
-              className="hover:text-white transition-colors flex items-center gap-1.5 p-1"
+              className="flex items-center gap-1.5 p-1 transition-colors hover:text-[#c5a970]"
               aria-label={`Cart (${count})`}
+              aria-controls="cart-drawer"
+              aria-expanded={state.isOpen}
             >
               <ShoppingBag size={17} strokeWidth={1.5} />
-              <span className="text-[11px] font-mono tracking-widest text-[#f5f5f5]">
+              <span className="font-mono text-[9px] tracking-widest text-[#d1bd91]">
                 [{count}]
               </span>
             </button>
@@ -177,7 +177,7 @@ export default function Navbar() {
             >
               {user ? "CUSTOMER PORTAL" : "ACCOUNT / SIGN IN"}
             </Link>
-            <p>© 2026 GUDUMBA® APPAREL LTD.</p>
+            <p>© 2026 GUDUMBA®</p>
           </div>
         </div>
       )}

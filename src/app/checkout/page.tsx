@@ -108,9 +108,6 @@ export default function CheckoutPage() {
           throw new Error(resData.error || "Failed to initiate YouPI UPI payment.");
         }
 
-        // Clear local cart
-        dispatch({ type: "CLEAR" });
-
         setYoupiData({
           orderNumber: orderData.orderNumber,
           amount: finalTotal,
@@ -134,8 +131,6 @@ export default function CheckoutPage() {
         if (!paytmRes.ok || !paytmData.success) {
           throw new Error(paytmData.error || "Failed to initiate Paytm gateway.");
         }
-
-        dispatch({ type: "CLEAR" });
 
         // Auto-create form and submit to Paytm
         const form = document.createElement("form");
@@ -210,7 +205,7 @@ export default function CheckoutPage() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Abhiram Bhat"
-                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                     />
                   </div>
                   <div>
@@ -223,7 +218,7 @@ export default function CheckoutPage() {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="10-digit mobile number"
-                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                     />
                   </div>
                   <div className="sm:col-span-2">
@@ -236,7 +231,7 @@ export default function CheckoutPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="order updates & receipt"
-                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -258,7 +253,7 @@ export default function CheckoutPage() {
                       value={addressLine1}
                       onChange={(e) => setAddressLine1(e.target.value)}
                       placeholder="House / Flat No., Street, Area"
-                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                     />
                   </div>
                   <div>
@@ -270,7 +265,7 @@ export default function CheckoutPage() {
                       value={addressLine2}
                       onChange={(e) => setAddressLine2(e.target.value)}
                       placeholder="Near landmark..."
-                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                      className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-3">
@@ -284,7 +279,7 @@ export default function CheckoutPage() {
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder="Bengaluru"
-                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                       />
                     </div>
                     <div>
@@ -297,7 +292,7 @@ export default function CheckoutPage() {
                         value={stateName}
                         onChange={(e) => setStateName(e.target.value)}
                         placeholder="Karnataka"
-                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                       />
                     </div>
                     <div>
@@ -311,7 +306,7 @@ export default function CheckoutPage() {
                         value={pincode}
                         onChange={(e) => setPincode(e.target.value)}
                         placeholder="560001"
-                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#c8410a] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
+                        className="w-full bg-[#1a1815] border border-[#2e2a24] focus:border-[#b59a68] rounded-xs px-3.5 py-2.5 text-xs text-white outline-none transition-colors"
                       />
                     </div>
                   </div>
@@ -323,19 +318,23 @@ export default function CheckoutPage() {
                 <h2 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] border-b border-[#26231d] pb-3">
                   3. Select Payment Method
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Payment method">
                   {/* YouPI Direct UPI Option */}
                   <div
+                    role="radio"
+                    aria-checked={paymentMethod === "YOUPI"}
+                    tabIndex={0}
                     onClick={() => setPaymentMethod("YOUPI")}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPaymentMethod("YOUPI"); } }}
                     className={`cursor-pointer p-4 rounded-xs border transition-all ${
                       paymentMethod === "YOUPI"
-                        ? "border-[#c8410a] bg-[#1a0f0a]"
+                        ? "border-[#b59a68] bg-[#1a0f0a]"
                         : "border-[#23201a] bg-[#171512] hover:border-[#38342c]"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-1.5">
-                        <Zap size={16} className="text-[#c8410a]" />
+                        <Zap size={16} className="text-[#b59a68]" />
                         <span className="text-xs font-bold text-white tracking-wide">
                           Direct UPI
                         </span>
@@ -351,16 +350,20 @@ export default function CheckoutPage() {
 
                   {/* Paytm Gateway Option */}
                   <div
+                    role="radio"
+                    aria-checked={paymentMethod === "PAYTM"}
+                    tabIndex={0}
                     onClick={() => setPaymentMethod("PAYTM")}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPaymentMethod("PAYTM"); } }}
                     className={`cursor-pointer p-4 rounded-xs border transition-all ${
                       paymentMethod === "PAYTM"
-                        ? "border-[#c8410a] bg-[#1a0f0a]"
+                        ? "border-[#b59a68] bg-[#1a0f0a]"
                         : "border-[#23201a] bg-[#171512] hover:border-[#38342c]"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-1.5">
-                        <CreditCard size={16} className="text-[#c8410a]" />
+                        <CreditCard size={16} className="text-[#b59a68]" />
                         <span className="text-xs font-bold text-white tracking-wide">
                           Cards / NetBank
                         </span>
@@ -376,16 +379,20 @@ export default function CheckoutPage() {
 
                   {/* Cash on Delivery Option */}
                   <div
+                    role="radio"
+                    aria-checked={paymentMethod === "COD"}
+                    tabIndex={0}
                     onClick={() => setPaymentMethod("COD")}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPaymentMethod("COD"); } }}
                     className={`cursor-pointer p-4 rounded-xs border transition-all ${
                       paymentMethod === "COD"
-                        ? "border-[#c8410a] bg-[#1a0f0a]"
+                        ? "border-[#b59a68] bg-[#1a0f0a]"
                         : "border-[#23201a] bg-[#171512] hover:border-[#38342c]"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-1.5">
-                        <Truck size={16} className="text-[#c8410a]" />
+                        <Truck size={16} className="text-[#b59a68]" />
                         <span className="text-xs font-bold text-white tracking-wide">
                           Cash on Delivery
                         </span>
@@ -422,7 +429,7 @@ export default function CheckoutPage() {
               </button>
 
               <div className="flex items-center justify-center gap-2 text-[11px] text-[#666]">
-                <ShieldCheck size={14} className="text-[#c8410a]" />
+                <ShieldCheck size={14} className="text-[#b59a68]" />
                 <span>256-bit encrypted checkout · Official YouPI-PG Direct Settlement</span>
               </div>
             </div>
@@ -482,7 +489,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="p-3 bg-[#171512] border border-[#23201a] rounded-xs text-[11px] text-[#777] space-y-1">
-                <p className="text-white font-medium">⚡ Gudumba Express Fulfillment</p>
+                <p className="text-white font-medium">Delivery details</p>
                 <p>Dispatched in 24-48 hours. Delivered in 3-5 days across India with 7-day hassle-free exchange.</p>
               </div>
             </aside>

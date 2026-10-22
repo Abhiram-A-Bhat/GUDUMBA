@@ -6,6 +6,7 @@ import ScrollCampaign from "@/components/home/ScrollCampaign";
 import NewsletterSection from "@/components/home/NewsletterSection";
 import Footer from "@/components/Footer";
 import { getProducts } from "@/lib/data-service";
+import type { ProductSummary } from "@/components/home/FeaturedProducts";
 
 export default async function HomePage() {
   const products = await getProducts({ featuredOnly: true, limit: 4 });
@@ -19,7 +20,7 @@ export default async function HomePage() {
       <MarqueeBand />
 
       {/* 3. Spacious Editorial Product Showcase (Represent Style) */}
-      <FeaturedProducts products={products as any} />
+      <FeaturedProducts products={products as ProductSummary[]} />
 
       {/* 4. Bold Typography Manifesto */}
       <BrandManifesto />

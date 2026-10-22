@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-[#100f0d] flex flex-col items-center justify-center px-6 text-center">
-      <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.3em] font-bold block mb-4">
+      <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.3em] font-bold block mb-4">
         Error 404 // Lost In The Noise
       </span>
       <h1

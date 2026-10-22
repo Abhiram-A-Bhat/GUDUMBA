@@ -117,7 +117,7 @@ export default function CartDrawer() {
         {/* Checkout status */}
         {items.length > 0 && (
           <div className="px-5 py-3 bg-[#171512] border-b border-[#1a1a1a]">
-            <p className="text-[11px] text-[#b7a89c]">Checkout is offline. Shipping availability has not been confirmed.</p>
+            <p className="text-[11px] text-[#b7a89c]">Your bag is ready. Delivery options and final total are shown at checkout.</p>
           </div>
         )}
 
@@ -144,7 +144,7 @@ export default function CartDrawer() {
                   <div className="flex-1 min-w-0 flex flex-col justify-between">
                     <div>
                       <Link
-                        href={`/shop/${item.productSlug}`}
+                        href={`/products/${item.productSlug}`}
                         onClick={() => dispatch({ type: "CLOSE_DRAWER" })}
                         className="text-[13px] font-semibold text-[#f2f0ed] leading-tight hover:text-white transition-colors line-clamp-2"
                       >
@@ -228,7 +228,7 @@ export default function CartDrawer() {
               </span>
             </div>
             <p className="text-[11px] text-[#555]">
-              Shipping and taxes are not available in this preview.
+              Delivery charges are shown at checkout.
             </p>
 
             {/* CTA */}

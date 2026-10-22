@@ -33,7 +33,8 @@ export default function ProductCard({ product }: ProductCardProps) {
     e.preventDefault();
     e.stopPropagation();
 
-    const chosen = variants.find((v) => v.size === size) || variants[0];
+    const chosen = variants.find((v) => v.size === size);
+    if (!chosen || chosen.inventory_count <= 0) return;
 
     dispatch({
       type: "ADD",
@@ -55,12 +56,13 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="group relative flex flex-col bg-[#100f0d] transition-all duration-300"
+      className="group relative flex flex-col bg-transparent transition-all duration-300"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Editorial Visual Ratio (Represent 3:4 Aspect) */}
-      <Link href={`/products/${product.slug}`} className="relative aspect-[3/4] w-full overflow-hidden bg-[#0d0d0d] block">
+      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#151411]">
+       <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`} className="absolute inset-0 block">
         {/* Primary Image */}
         <Image
           src={product.primary_image || "/brand/brand_asset_3.jpeg"}
@@ -85,43 +87,29 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
         )}
 
-        {/* Clean Luxury Hover Size Strip (Appears gracefully on desktop hover) */}
-        <div
-          className={`absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-20 transition-all duration-300 flex flex-col gap-1.5 ${
-            isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0 pointer-events-none"
-          }`}
-        >
-          <span className="text-[9px] font-mono tracking-widest text-[#888] uppercase text-center">
-            Quick Add Size
-          </span>
+       </Link>
+        {variants.length > 0 && <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 via-black/60 to-transparent z-20 transition-all duration-300 flex flex-col gap-1.5 sm:translate-y-2 sm:opacity-0 sm:pointer-events-none sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:group-hover:pointer-events-auto sm:group-focus-within:translate-y-0 sm:group-focus-within:opacity-100 sm:group-focus-within:pointer-events-auto">
+          <span className="text-[9px] font-mono tracking-widest text-[#aaa] uppercase text-center">Quick add size</span>
           <div className="flex items-center justify-center gap-1.5 flex-wrap">
-            {variants.map((v) => (
-              <button
-                key={v.id}
-                onClick={(e) => handleQuickAdd(e, v.size)}
-                className="w-8 h-8 bg-black/80 hover:bg-white text-white hover:text-black font-mono text-[10px] uppercase border border-[#2a2a2a] transition-all flex items-center justify-center"
-              >
-                {v.size}
-              </button>
-            ))}
+            {variants.map((v) => <button key={v.id} type="button" disabled={v.inventory_count <= 0} aria-label={`Add ${product.name}, size ${v.size}${v.inventory_count <= 0 ? ", sold out" : ""}`} onClick={(e) => handleQuickAdd(e, v.size)} className="min-w-9 h-9 px-2 bg-black/80 hover:bg-white text-white hover:text-black font-mono text-[10px] uppercase border border-[#555] transition-all disabled:opacity-40 disabled:cursor-not-allowed">{v.size}</button>)}
           </div>
-        </div>
-      </Link>
+        </div>}
+      </div>
 
       {/* Product Meta Typography (Spacious, Understated Luxury) */}
-      <div className="pt-4 flex flex-col gap-1">
-        <span className="text-[10px] font-mono tracking-[0.25em] text-[#555] uppercase">
+      <div className="mt-2 flex flex-col gap-1 border-t border-[#8d744f]/55 pt-2.5">
+        <span className="font-mono text-[8px] uppercase tracking-[0.22em] text-[#8f8065]">
           {product.category_name || "COLLECTION 01"}
         </span>
 
         <Link href={`/products/${product.slug}`} className="block">
-          <h3 className="text-xs font-semibold text-[#e5e5e5] group-hover:text-white transition-colors tracking-wide">
+          <h3 className="text-[10px] font-medium uppercase tracking-[0.13em] text-[#e5e0d7] transition-colors group-hover:text-white sm:text-[11px]">
             {product.name}
           </h3>
         </Link>
 
-        <div className="flex items-baseline gap-2 mt-0.5">
-          <span className="text-xs font-mono font-medium text-[#f5f5f5]">
+        <div className="mt-0.5 flex items-baseline gap-2">
+          <span className="font-mono text-[10px] font-medium text-[#c5a970]">
             {formatPrice(product.price)}
           </span>
           {product.compare_at_price && (

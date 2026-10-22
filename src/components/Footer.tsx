@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Loader2 } from "lucide-react";
@@ -33,20 +33,23 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSubscribe = async (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) return;
     setLoading(true);
+    setError("");
     try {
-      await fetch("/api/newsletter/subscribe", {
+      const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Subscription failed. Please try again.");
       setSubscribed(true);
-    } catch {
-      setSubscribed(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Subscription failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -134,24 +137,16 @@ export default function Footer() {
             </p>
 
             {subscribed ? (
-              <span className="text-xs font-mono text-white block py-2 border-b border-white">
-                ✓ YOU ARE ON THE PRIVATE LIST.
-              </span>
+              <span className="text-xs font-mono text-white block py-2 border-b border-white">✓ YOU ARE ON THE PRIVATE LIST.</span>
             ) : (
               <form onSubmit={handleSubscribe} className="flex border-b border-[#2a2a2a] focus-within:border-white transition-colors pb-1">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ENTER EMAIL ADDRESS"
-                  required
-                  className="bg-transparent text-xs text-white placeholder:text-[#555] font-mono outline-none flex-1 py-1"
-                />
-                <button type="submit" disabled={loading} className="text-[#888] hover:text-white pl-2">
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ENTER EMAIL ADDRESS" aria-label="Email address for drop alerts" required className="bg-transparent text-xs text-white placeholder:text-[#555] font-mono outline-none flex-1 py-1" />
+                <button type="submit" disabled={loading} aria-label="Subscribe to drop alerts" className="text-[#888] hover:text-white pl-2 disabled:opacity-50">
                   {loading ? <Loader2 size={14} className="animate-spin" /> : <ArrowRight size={14} />}
                 </button>
               </form>
             )}
+            {error && <p role="alert" className="mt-2 text-xs text-red-400">{error}</p>}
 
             <div className="mt-8 flex items-center gap-3">
               <a

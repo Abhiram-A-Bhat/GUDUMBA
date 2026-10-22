@@ -106,7 +106,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
                     onClick={() => setActiveImgIndex(i)}
                     className={`relative w-20 h-24 shrink-0 rounded-xs overflow-hidden border-2 transition-all ${
                       activeImgIndex === i
-                        ? "border-[#c8410a]"
+                        ? "border-[#b59a68]"
                         : "border-[#222] opacity-60 hover:opacity-100"
                     }`}
                   >
@@ -138,7 +138,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
                   {product.category_name || "Drop 01"}
                 </span>
                 {discountPct && (
-                  <span className="bg-[#c8410a] text-white text-[10px] uppercase tracking-[0.14em] px-2.5 py-0.5 font-bold">
+                  <span className="bg-[#b59a68] text-white text-[10px] uppercase tracking-[0.14em] px-2.5 py-0.5 font-bold">
                     SAVE {discountPct}%
                   </span>
                 )}
@@ -148,7 +148,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
 
           {/* Right: Info & Controls (5 cols) */}
           <div className="lg:col-span-5 flex flex-col justify-start">
-            <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.25em] font-semibold mb-2">
+            <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.25em] font-semibold mb-2">
               {product.subtitle || "GUDUMBA® HEAVYWEIGHT"}
             </span>
 
@@ -201,7 +201,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
                     onClick={() => setSelectedSize(v.size)}
                     className={`py-3 text-xs font-bold uppercase tracking-wider rounded-xs border transition-all ${
                       selectedSize === v.size
-                        ? "border-[#c8410a] bg-[#c8410a] text-white"
+                        ? "border-[#b59a68] bg-[#b59a68] text-white"
                         : "border-[#2a2a2a] bg-[#121212] text-[#ccc] hover:border-[#555]"
                     }`}
                   >
@@ -250,7 +250,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
                 aria-label="Save to Wishlist"
                 className={`p-3 border rounded-xs transition-colors ${
                   wishlist
-                    ? "border-[#c8410a] bg-[#c8410a]/10 text-[#c8410a]"
+                    ? "border-[#b59a68] bg-[#b59a68]/10 text-[#b59a68]"
                     : "border-[#2a2a2a] bg-[#121212] text-[#888] hover:text-white"
                 }`}
               >
@@ -261,15 +261,15 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
             {/* Value props */}
             <div className="grid grid-cols-3 gap-2 py-4 border-t border-[#26231d] text-[11px] text-[#888] font-mono">
               <div className="flex items-center gap-1.5">
-                <Truck size={14} className="text-[#c8410a] shrink-0" />
+                <Truck size={14} className="text-[#b59a68] shrink-0" />
                 <span>Shipping not confirmed</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <RefreshCw size={14} className="text-[#c8410a] shrink-0" />
+                <RefreshCw size={14} className="text-[#b59a68] shrink-0" />
                 <span>Returns policy pending</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-[#c8410a] shrink-0" />
+                <ShieldCheck size={14} className="text-[#b59a68] shrink-0" />
                 <span>Details unverified</span>
               </div>
             </div>
@@ -283,7 +283,7 @@ export default function ProductDetailClient({ product }: ProductDetailProps) {
                 <ul className="space-y-2 text-xs text-[#888]">
                   {product.details.map((bullet, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-[#c8410a] mt-0.5">•</span>
+                      <span className="text-[#b59a68] mt-0.5">•</span>
                       <span>{bullet}</span>
                     </li>
                   ))}

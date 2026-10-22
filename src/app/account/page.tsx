@@ -53,7 +53,7 @@ export default function AccountPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#222] pb-8 mb-12 gap-4">
           <div>
-            <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.25em] font-semibold block mb-2">
+            <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.25em] font-semibold block mb-2">
               Identity Portal
             </span>
             <h1 className="g-display text-4xl sm:text-6xl text-[#f2f0ed]">
@@ -87,7 +87,7 @@ export default function AccountPage() {
           {/* Orders Section (8 cols) */}
           <div className="lg:col-span-8">
             <h2 className="text-sm uppercase tracking-widest font-bold text-[#f2f0ed] mb-6 flex items-center gap-2">
-              <Package size={16} className="text-[#c8410a]" /> Order Archive ({orders.length})
+              <Package size={16} className="text-[#b59a68]" /> Order Archive ({orders.length})
             </h2>
 
             {fetchingOrders ? (
@@ -122,7 +122,7 @@ export default function AccountPage() {
                       <span className="px-2.5 py-1 bg-[#1a1a1a] border border-[#333] text-[#ccc] rounded-xs font-bold text-[10px]">
                         {ord.fulfillment_status}
                       </span>
-                      <span className="text-sm font-bold text-[#c8410a]">
+                      <span className="text-sm font-bold text-[#b59a68]">
                         {formatPrice(ord.total_amount)}
                       </span>
                     </div>
@@ -136,7 +136,7 @@ export default function AccountPage() {
           <div className="lg:col-span-4 space-y-6">
             <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
               <h3 className="text-xs uppercase tracking-widest font-bold text-[#f2f0ed] mb-4 flex items-center gap-2">
-                <User size={14} className="text-[#c8410a]" /> Customer Security
+                <User size={14} className="text-[#b59a68]" /> Customer Security
               </h3>
               <div className="space-y-3 text-xs text-[#888] font-mono">
                 <div>

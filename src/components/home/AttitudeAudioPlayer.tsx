@@ -15,14 +15,14 @@ export default function AttitudeAudioPlayer() {
 
   return (
     <section className="py-16 px-4 sm:px-8 bg-[#0a0a0a] border-b border-[#222]">
-      <div className="max-w-[1440px] mx-auto bg-gradient-to-r from-[#141414] via-[#1a1412] to-[#141414] border border-[#ff4800]/30 rounded-sm p-6 sm:p-10 relative overflow-hidden">
+      <div className="max-w-[1440px] mx-auto bg-gradient-to-r from-[#141414] via-[#1a1412] to-[#141414] border border-[#b59a68]/30 rounded-sm p-6 sm:p-10 relative overflow-hidden">
         {/* Glow backdrop */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#ff4800]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#b59a68]/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 relative z-10">
           <div>
-            <div className="flex items-center gap-2 text-[#ff4800] text-[11px] font-mono font-bold tracking-[0.2em] uppercase mb-2">
-              <Zap size={14} className="fill-[#ff4800]" />
+            <div className="flex items-center gap-2 text-[#b59a68] text-[11px] font-mono font-bold tracking-[0.2em] uppercase mb-2">
+              <Zap size={14} className="fill-[#b59a68]" />
               <span>THE GUDUMBA DIFFERENTIATOR: ATTITUDE RADIO</span>
             </div>
             <h2
@@ -41,14 +41,14 @@ export default function AttitudeAudioPlayer() {
             <div className="bg-black/80 border border-[#333] rounded-xs p-3.5 flex items-center gap-4 w-full sm:w-auto">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="w-10 h-10 rounded-full bg-[#ff4800] text-black font-extrabold flex items-center justify-center hover:scale-105 transition-transform shrink-0"
+                className="w-10 h-10 rounded-full bg-[#b59a68] text-black font-extrabold flex items-center justify-center hover:scale-105 transition-transform shrink-0"
                 aria-label={isPlaying ? "Pause Beat" : "Play Beat"}
               >
                 {isPlaying ? <Volume2 size={18} /> : <VolumeX size={18} />}
               </button>
 
               <div className="font-mono text-left">
-                <span className="text-[10px] text-[#ff4800] font-bold block">
+                <span className="text-[10px] text-[#b59a68] font-bold block">
                   {isPlaying ? "NOW STREAMING //" : "SELECT DROP SOUNDTRACK //"}
                 </span>
                 <span className="text-xs text-white font-bold block">
@@ -64,7 +64,7 @@ export default function AttitudeAudioPlayer() {
                 {[40, 90, 60, 100, 30, 80].map((h, i) => (
                   <span
                     key={i}
-                    className={`w-1 bg-[#ff4800] rounded-full transition-all duration-300 ${
+                    className={`w-1 bg-[#b59a68] rounded-full transition-all duration-300 ${
                       isPlaying ? "animate-pulse" : "opacity-30"
                     }`}
                     style={{ height: isPlaying ? `${h}%` : "20%" }}

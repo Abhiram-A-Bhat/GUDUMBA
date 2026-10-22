@@ -62,7 +62,7 @@ export default function ShopClient({
       <div className="max-w-[1400px] mx-auto px-6 w-full pb-24">
         {/* Header */}
         <div className="mb-12 border-b border-[#222] pb-8">
-          <span className="text-[#c8410a] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
+          <span className="text-[#b59a68] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
             The Complete Archive
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -85,7 +85,7 @@ export default function ShopClient({
               onClick={() => updateFilters("all", currentSort, search)}
               className={`px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] rounded-xs transition-colors whitespace-nowrap ${
                 currentCategory === "all"
-                  ? "bg-[#c8410a] text-white"
+                  ? "bg-[#b59a68] text-white"
                   : "bg-[#121212] text-[#888] hover:text-[#f2f0ed] border border-[#222]"
               }`}
             >
@@ -97,7 +97,7 @@ export default function ShopClient({
                 onClick={() => updateFilters(cat.slug, currentSort, search)}
                 className={`px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] rounded-xs transition-colors whitespace-nowrap ${
                   currentCategory === cat.slug
-                    ? "bg-[#c8410a] text-white"
+                    ? "bg-[#b59a68] text-white"
                     : "bg-[#121212] text-[#888] hover:text-[#f2f0ed] border border-[#222]"
                 }`}
               >
@@ -115,7 +115,7 @@ export default function ShopClient({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="SEARCH ARCHIVE..."
-                className="w-full bg-[#121212] border border-[#262626] focus:border-[#c8410a] text-[#f2f0ed] px-3 py-2 text-xs uppercase tracking-wider rounded-xs outline-none pl-8"
+                className="w-full bg-[#121212] border border-[#262626] focus:border-[#b59a68] text-[#f2f0ed] px-3 py-2 text-xs uppercase tracking-wider rounded-xs outline-none pl-8"
               />
               <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[#666]" />
               {search && (
@@ -137,7 +137,7 @@ export default function ShopClient({
               value={currentSort}
               onChange={(e) => updateFilters(currentCategory, e.target.value, search)}
               aria-label="Sort products by"
-              className="bg-[#121212] border border-[#262626] text-[#888] hover:text-[#f2f0ed] focus:border-[#c8410a] text-xs uppercase tracking-wider px-3 py-2 rounded-xs outline-none cursor-pointer"
+              className="bg-[#121212] border border-[#262626] text-[#888] hover:text-[#f2f0ed] focus:border-[#b59a68] text-xs uppercase tracking-wider px-3 py-2 rounded-xs outline-none cursor-pointer"
             >
               <option value="featured">Featured Drops</option>
               <option value="newest">Newest Arrivals</option>

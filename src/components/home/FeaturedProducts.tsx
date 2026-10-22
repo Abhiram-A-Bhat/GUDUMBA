@@ -32,26 +32,24 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
     : products.filter(p => p.category_slug === activeTab);
 
   return (
-    <section className="py-28 px-6 sm:px-12 max-w-[1600px] mx-auto" id="collection">
+    <section className="mx-auto max-w-[1600px] px-6 py-20 sm:px-12 lg:py-24" id="collection">
       {/* Editorial Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#23201a] gap-6">
+      <div className="mb-8 flex flex-col gap-6 border-b border-[#8d744f]/60 pb-5 md:mb-9 md:flex-row md:items-end md:justify-between">
         <div>
-          <span className="text-[10px] font-mono tracking-[0.3em] uppercase text-[#666] block mb-3">
-            GUDUMBA / FIRST RELEASE
+          <span className="mb-2 block font-mono text-[9px] uppercase tracking-[0.3em] text-[#b59a68]">
+            THE COLLECTION &nbsp; — &nbsp; VOL. 01
           </span>
-          <h2
-            className="font-display text-4xl sm:text-6xl text-[#f5f5f5]"
-          >
-            THE COLLECTION
+          <h2 className="font-display text-4xl leading-none tracking-tight text-[#f0ece4] sm:text-5xl">
+            VOL. 01 — RUNWAY / STREET
           </h2>
         </div>
 
         {/* Minimalist Filter Text Links (Represent style) */}
-        <div className="flex items-center gap-6 text-[11px] font-mono tracking-[0.2em] uppercase">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[9px] uppercase tracking-[0.17em] sm:gap-x-6 sm:text-[10px]">
           <button
             onClick={() => setActiveTab("all")}
             className={`transition-colors ${
-              activeTab === "all" ? "text-white border-b border-white pb-0.5" : "text-[#555] hover:text-[#999]"
+              activeTab === "all" ? "border-b border-[#b59a68] pb-1 text-[#d3b77e]" : "text-[#777168] hover:text-[#e3ded4]"
             }`}
           >
             All [{products.length}]
@@ -59,7 +57,7 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
           <button
             onClick={() => setActiveTab("tees")}
             className={`transition-colors ${
-              activeTab === "tees" ? "text-white border-b border-white pb-0.5" : "text-[#555] hover:text-[#999]"
+              activeTab === "tees" ? "border-b border-[#b59a68] pb-1 text-[#d3b77e]" : "text-[#777168] hover:text-[#e3ded4]"
             }`}
           >
             Tees
@@ -67,7 +65,7 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
           <button
             onClick={() => setActiveTab("hoodies")}
             className={`transition-colors ${
-              activeTab === "hoodies" ? "text-white border-b border-white pb-0.5" : "text-[#555] hover:text-[#999]"
+              activeTab === "hoodies" ? "border-b border-[#b59a68] pb-1 text-[#d3b77e]" : "text-[#777168] hover:text-[#e3ded4]"
             }`}
           >
             Hoodies
@@ -75,7 +73,7 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
           <button
             onClick={() => setActiveTab("drop-01-chaos")}
             className={`transition-colors ${
-              activeTab === "drop-01-chaos" ? "text-white border-b border-white pb-0.5" : "text-[#555] hover:text-[#999]"
+              activeTab === "drop-01-chaos" ? "border-b border-[#b59a68] pb-1 text-[#d3b77e]" : "text-[#777168] hover:text-[#e3ded4]"
             }`}
           >
             Outerwear
@@ -84,7 +82,7 @@ export default function FeaturedProducts({ products }: { products: ProductSummar
       </div>
 
       {/* Spacious 4-Column Grid with Generous Gutter */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-5 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-6">
         {filteredProducts.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}

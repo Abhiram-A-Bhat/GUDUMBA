@@ -12,12 +12,12 @@ export default function MarqueeBand() {
   ];
 
   return (
-    <div className="bg-[#171613] border-y border-[#302d27] py-4 overflow-hidden relative select-none">
-      <div className="luxury-marquee flex items-center gap-12 font-mono text-[10px] tracking-[0.35em] text-[#555] uppercase">
+    <div className="relative select-none overflow-hidden border-y border-[#8d744f]/50 bg-[#0d0c0a] py-3.5">
+      <div className="luxury-marquee flex items-center gap-12 font-mono text-[9px] uppercase tracking-[0.32em] text-[#b59a68]/80">
         {[...words, ...words].map((w, i) => (
           <span key={i} className="flex items-center gap-12 shrink-0 hover:text-[#999] transition-colors">
             <span>{w}</span>
-            <span className="text-[#333]">/</span>
+            <span className="text-[#5e5039]">✳</span>
           </span>
         ))}
       </div>

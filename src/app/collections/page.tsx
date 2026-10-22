@@ -24,7 +24,7 @@ export default async function CollectionsPage() {
     <div className="pt-24 min-h-screen bg-[#100f0d] flex flex-col justify-between">
       <div className="max-w-[1400px] mx-auto px-6 py-8 w-full">
         <div className="mb-16 border-b border-[#23201a] pb-8">
-          <span className="text-[#c8410a] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
+          <span className="text-[#b59a68] text-xs uppercase tracking-[0.25em] font-semibold block mb-2">
             Archive Chapters
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -54,10 +54,10 @@ export default async function CollectionsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent z-10" />
 
               <div className="relative z-20">
-                <span className="text-[#c8410a] text-xs font-mono uppercase tracking-widest block font-bold mb-1">
+                <span className="text-[#b59a68] text-xs font-mono uppercase tracking-widest block font-bold mb-1">
                   CHAPTER DROP
                 </span>
-                <h2 className="g-display text-3xl text-white mb-2 group-hover:text-[#c8410a] transition-colors">
+                <h2 className="g-display text-3xl text-white mb-2 group-hover:text-[#b59a68] transition-colors">
                   {col.name}
                 </h2>
                 <p className="text-xs text-[#aaa] line-clamp-2 mb-4 font-light">

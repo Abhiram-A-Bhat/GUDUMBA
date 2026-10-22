@@ -152,12 +152,12 @@ export default function YoupiPaymentModal({
 
         {/* Real-time Status Footer */}
         <div className="flex items-center gap-2 text-[11px] font-mono text-[#777]">
-          <RefreshCw size={12} className={`text-[#c8410a] ${checking ? "animate-spin" : ""}`} />
+          <RefreshCw size={12} className={`text-[#b59a68] ${checking ? "animate-spin" : ""}`} />
           <span>Listening for bank credit notification...</span>
         </div>
 
         <div className="mt-3 flex items-center gap-1.5 text-[10px] text-[#555]">
-          <ShieldCheck size={13} className="text-[#c8410a]" />
+          <ShieldCheck size={13} className="text-[#b59a68]" />
           <span>Direct peer-to-merchant settlement • Zero intermediary cut</span>
         </div>
       </div>

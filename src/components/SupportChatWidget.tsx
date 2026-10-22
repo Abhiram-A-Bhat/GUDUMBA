@@ -73,10 +73,10 @@ export default function SupportChatWidget() {
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Open AI Concierge"
-            className="group flex items-center gap-2.5 px-4 py-3 bg-[#0a0a0a] border border-[#2a2a2a] hover:border-[#c8410a] text-white rounded-full shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
+            className="group flex items-center gap-2.5 px-4 py-3 bg-[#0a0a0a] border border-[#2a2a2a] hover:border-[#b59a68] text-white rounded-full shadow-2xl backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
           >
             <div className="relative">
-              <MessageSquare size={17} className="text-[#c8410a] group-hover:text-white transition-colors" />
+              <MessageSquare size={17} className="text-[#b59a68] group-hover:text-white transition-colors" />
               <span className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
             </div>
             <span className="text-xs font-semibold tracking-wider uppercase pr-1">Concierge</span>
@@ -91,7 +91,7 @@ export default function SupportChatWidget() {
           <div className="px-4 py-3.5 bg-[#141414] border-b border-[#222] flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-7 h-7 rounded-full bg-[#1e1e1e] border border-[#333] flex items-center justify-center">
-                <Sparkles size={14} className="text-[#c8410a]" />
+                <Sparkles size={14} className="text-[#b59a68]" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -122,7 +122,7 @@ export default function SupportChatWidget() {
                 <div
                   className={`max-w-[85%] px-3.5 py-2.5 rounded-xl text-xs leading-relaxed ${
                     m.role === "user"
-                      ? "bg-[#c8410a] text-white font-medium"
+                      ? "bg-[#b59a68] text-white font-medium"
                       : "bg-[#181818] border border-[#282828] text-[#e0e0e0]"
                   }`}
                 >
@@ -134,7 +134,7 @@ export default function SupportChatWidget() {
             {loading && (
               <div className="flex justify-start">
                 <div className="bg-[#181818] border border-[#282828] text-[#999] px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-2">
-                  <RefreshCw size={12} className="animate-spin text-[#c8410a]" />
+                  <RefreshCw size={12} className="animate-spin text-[#b59a68]" />
                   <span>Checking catalog & specs...</span>
                 </div>
               </div>
@@ -149,7 +149,7 @@ export default function SupportChatWidget() {
                 key={i}
                 onClick={() => handleSend(q)}
                 disabled={loading}
-                className="shrink-0 text-[10px] tracking-wide px-2.5 py-1 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] text-[#aaa] hover:text-white hover:border-[#c8410a] transition-colors disabled:opacity-50"
+                className="shrink-0 text-[10px] tracking-wide px-2.5 py-1 rounded-full bg-[#1a1a1a] border border-[#2a2a2a] text-[#aaa] hover:text-white hover:border-[#b59a68] transition-colors disabled:opacity-50"
               >
                 {q}
               </button>
@@ -169,12 +169,12 @@ export default function SupportChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about sizing, drops, fabric..."
-              className="flex-1 bg-[#0a0a0a] border border-[#2a2a2a] focus:border-[#c8410a] rounded-xl px-3 py-2 text-xs text-white placeholder-[#555] outline-none transition-colors"
+              className="flex-1 bg-[#0a0a0a] border border-[#2a2a2a] focus:border-[#b59a68] rounded-xl px-3 py-2 text-xs text-white placeholder-[#555] outline-none transition-colors"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="p-2.5 bg-[#c8410a] hover:bg-[#d94d12] disabled:opacity-40 text-white rounded-xl transition-colors"
+              className="p-2.5 bg-[#b59a68] hover:bg-[#c6ad7e] disabled:opacity-40 text-white rounded-xl transition-colors"
               aria-label="Send message"
             >
               <Send size={14} />

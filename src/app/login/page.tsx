@@ -341,7 +341,7 @@ export default function LoginPage() {
 
         {/* Demo credentials hint */}
         <div className="mt-8 p-3 bg-[#0d0d0d] border border-[#1a1a1a] text-[10px] font-mono text-[#666]">
-          <span className="text-[#c8410a] font-bold block mb-0.5">ADMIN OVERRIDE:</span>
+          <span className="text-[#b59a68] font-bold block mb-0.5">ADMIN OVERRIDE:</span>
           admin@gudumba.in / Gudumba@2026!
         </div>
       </div>

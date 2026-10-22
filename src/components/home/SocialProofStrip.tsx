@@ -1,7 +1,4 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 export default function SocialProofStrip() {
   const reviews = [
@@ -33,7 +30,7 @@ export default function SocialProofStrip() {
       <div className="max-w-[1440px] mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
           <div>
-            <span className="text-[#ff4800] text-xs font-mono font-bold tracking-[0.2em] uppercase block mb-1">
+            <span className="text-[#b59a68] text-xs font-mono font-bold tracking-[0.2em] uppercase block mb-1">
               STREET CREDIBILITY
             </span>
             <h2
@@ -57,13 +54,13 @@ export default function SocialProofStrip() {
             >
               <div>
                 {/* 5 Stars */}
-                <div className="flex items-center gap-1 text-[#ff4800] mb-4">
+                <div className="flex items-center gap-1 text-[#b59a68] mb-4">
                   {[...Array(r.rating)].map((_, idx) => (
-                    <Star key={idx} size={14} className="fill-[#ff4800]" />
+                    <Star key={idx} size={14} className="fill-[#b59a68]" />
                   ))}
                 </div>
                 <p className="text-xs sm:text-sm text-[#ccc] leading-relaxed mb-6 font-medium">
-                  "{r.quote}"
+                  &ldquo;{r.quote}&rdquo;
                 </p>
               </div>
 
@@ -72,7 +69,7 @@ export default function SocialProofStrip() {
                   <span className="text-white font-bold block">{r.user}</span>
                   <span className="text-[#666] text-[10px]">{r.city} • VERIFIED BUYER</span>
                 </div>
-                <span className="text-[10px] text-[#ff4800] font-bold uppercase tracking-wider">
+                <span className="text-[10px] text-[#b59a68] font-bold uppercase tracking-wider">
                   {r.item}
                 </span>
               </div>

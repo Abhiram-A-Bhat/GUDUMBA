@@ -62,7 +62,7 @@ export default async function AdminDashboardPage() {
         {/* Top bar */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#222] pb-6 mb-8 gap-4">
           <div>
-            <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.25em] font-semibold block mb-1">
+            <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.25em] font-semibold block mb-1">
               Gudumba Executive Control
             </span>
             <h1 className="g-display text-4xl sm:text-6xl text-[#f2f0ed]">
@@ -81,7 +81,7 @@ export default async function AdminDashboardPage() {
           <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Gross Value of Paid Orders</span>
-              <DollarSign size={16} className="text-[#c8410a]" />
+              <DollarSign size={16} className="text-[#b59a68]" />
             </div>
             <p className="text-3xl font-bold font-mono text-[#f2f0ed]">
               {formatPrice(totalRev)}
@@ -92,7 +92,7 @@ export default async function AdminDashboardPage() {
           <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Total Orders</span>
-              <Package size={16} className="text-[#c8410a]" />
+              <Package size={16} className="text-[#b59a68]" />
             </div>
             <p className="text-3xl font-bold font-mono text-[#f2f0ed]">
               {totalOrders}
@@ -103,7 +103,7 @@ export default async function AdminDashboardPage() {
           <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Unfulfilled Shipments</span>
-              <Clock size={16} className="text-[#c8410a]" />
+              <Clock size={16} className="text-[#b59a68]" />
             </div>
             <p className="text-3xl font-bold font-mono text-[#f2f0ed]">
               {pendingFulfillment}
@@ -114,7 +114,7 @@ export default async function AdminDashboardPage() {
           <div className="p-6 bg-[#171512] border border-[#222] rounded-xs">
             <div className="flex justify-between items-start mb-4">
               <span className="text-xs font-mono text-[#777] uppercase">Active SKUs</span>
-              <Users size={16} className="text-[#c8410a]" />
+              <Users size={16} className="text-[#b59a68]" />
             </div>
             <p className="text-3xl font-bold font-mono text-[#f2f0ed]">
               {totalProducts}
@@ -152,7 +152,7 @@ export default async function AdminDashboardPage() {
                 <tbody className="divide-y divide-[#23201a]">
                   {recentOrders.map((ord) => (
                     <tr key={ord.id} className="hover:bg-[#121212] transition-colors">
-                      <td className="py-3 text-[#c8410a] font-bold">{ord.order_number}</td>
+                      <td className="py-3 text-[#b59a68] font-bold">{ord.order_number}</td>
                       <td className="py-3 text-[#ccc]">{ord.customer_name}</td>
                       <td className="py-3 text-[#777]">{new Date(ord.created_at).toLocaleDateString()}</td>
                       <td className="py-3">

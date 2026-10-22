@@ -24,7 +24,7 @@ export default function OurStoryPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#100f0d] via-[#100f0d]/40 to-transparent" />
 
         <div className="relative z-10 text-center max-w-3xl px-6">
-          <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.3em] font-bold block mb-4">
+          <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.3em] font-bold block mb-4">
             The Philosophy
           </span>
           <h1
@@ -42,7 +42,7 @@ export default function OurStoryPage() {
       {/* Narrative Section */}
       <section className="py-24 px-6 max-w-[900px] mx-auto text-[#aaa] space-y-12 leading-relaxed">
         <div>
-          <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
+          <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
             Origins
           </span>
           <h2 className="g-display text-3xl sm:text-5xl text-[#f2f0ed] mb-6">
@@ -54,7 +54,7 @@ export default function OurStoryPage() {
           <p className="text-base text-[#888] leading-relaxed mb-6">
             The world will always have an opinion. Too loud. Too bold. Too confident. Too different.
             <br />
-            <strong className="text-[#c8410a]">We say — so what?</strong>
+            <strong className="text-[#b59a68]">We say — so what?</strong>
           </p>
           <p className="text-base text-[#aaa] leading-relaxed">
             Our clothes are inspired by the men who choose their own standards, build their own identity, and stand behind every decision they make. From the streets to the boardroom. From the gym to the night out. From ambition to adversity. Every piece is designed for a man who carries himself with confidence and doesn&apos;t need someone else&apos;s approval to know his worth.
@@ -63,8 +63,8 @@ export default function OurStoryPage() {
 
         {/* Attitude Block */}
         <div className="p-8 sm:p-12 bg-[#141310] border border-[#222] rounded-xs my-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[#c8410a]/5 rounded-full blur-2xl" />
-          <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#b59a68]/5 rounded-full blur-2xl" />
+          <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
             The Mindset
           </span>
           <h3 className="g-display text-3xl sm:text-4xl text-[#f2f0ed] mb-6">
@@ -82,7 +82,7 @@ export default function OurStoryPage() {
 
         {/* The Code */}
         <div>
-          <span className="text-[#c8410a] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
+          <span className="text-[#b59a68] text-xs font-mono uppercase tracking-[0.2em] font-semibold block mb-2">
             Core Creed
           </span>
           <h3 className="g-display text-4xl sm:text-6xl text-[#f2f0ed] mb-8">
@@ -90,19 +90,19 @@ export default function OurStoryPage() {
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs text-[#ccc]">
             <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
-              <span className="text-[#c8410a] font-bold">01</span>
+              <span className="text-[#b59a68] font-bold">01</span>
               <span>WORK HARD. STAND TALL.</span>
             </div>
             <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
-              <span className="text-[#c8410a] font-bold">02</span>
+              <span className="text-[#b59a68] font-bold">02</span>
               <span>TAKE RISKS. OWN YOUR CHOICES.</span>
             </div>
             <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
-              <span className="text-[#c8410a] font-bold">03</span>
+              <span className="text-[#b59a68] font-bold">03</span>
               <span>PROTECT YOUR STANDARDS.</span>
             </div>
             <div className="p-4 bg-[#171512] border border-[#222] flex items-center gap-3">
-              <span className="text-[#c8410a] font-bold">04</span>
+              <span className="text-[#b59a68] font-bold">04</span>
               <span>NEVER SHRINK TO FIT IN.</span>
             </div>
           </div>
