@@ -1,5 +1,4 @@
 import { sign, verify } from "jsonwebtoken";
-import db from "@/lib/db";
 
 const SESSION_COOKIE = "gudumba_token";
 
@@ -20,11 +19,13 @@ export interface AuthPayload {
   email: string;
   name: string;
   role: "customer" | "admin";
+  phone?: string;
 }
 
-export function createSession(user: { id: string; email: string; name: string }) {
-  return sign({ userId: user.id, email: user.email, name: user.name }, getSecret(), {
-    expiresIn: "7d",
+export function createSession(user: { id: string; email: string; name: string; role?: "customer" | "admin"; phone?: string }) {
+  const role = user.role || "customer";
+  return sign({ userId: user.id, email: user.email, name: user.name, role, phone: user.phone }, getSecret(), {
+    expiresIn: role === "admin" ? "8h" : "7d",
     issuer: "gudumba",
     audience: "gudumba-storefront",
   });
@@ -37,13 +38,20 @@ export function getAuthUserFromToken(token?: string): AuthPayload | null {
       issuer: "gudumba",
       audience: "gudumba-storefront",
       algorithms: ["HS256"],
-    }) as { userId?: unknown };
-    if (typeof payload.userId !== "string") return null;
-    const user = db.prepare("SELECT id, email, name, role FROM users WHERE id = ?").get(payload.userId) as
-      | { id: string; email: string; name: string; role: string }
-      | undefined;
-    if (!user || (user.role !== "customer" && user.role !== "admin")) return null;
-    return { userId: user.id, email: user.email, name: user.name, role: user.role };
+    }) as { userId?: unknown; email?: unknown; name?: unknown; role?: unknown; phone?: unknown };
+    if (
+      typeof payload.userId !== "string" ||
+      typeof payload.email !== "string" ||
+      typeof payload.name !== "string" ||
+      (payload.role !== "customer" && payload.role !== "admin")
+    ) return null;
+    return {
+      userId: payload.userId,
+      email: payload.email,
+      name: payload.name,
+      role: payload.role,
+      ...(typeof payload.phone === "string" ? { phone: payload.phone } : {}),
+    };
   } catch {
     return null;
   }

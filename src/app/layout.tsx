@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Bebas_Neue } from "next/font/google";
 import { MotionConfig } from "framer-motion";
+import { ReactLenis } from "lenis/react";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthProvider } from "@/lib/auth-context";
@@ -81,21 +83,31 @@ export default function RootLayout({
         {/* Film grain overlay */}
         <div className="grain-overlay" aria-hidden="true" />
 
-        <MotionConfig reducedMotion="user">
-          <AuthProvider>
-            <WishlistProvider>
-              <CartProvider>
-                <Navbar />
-                <CartDrawer />
-                <main id="main-content">{children}</main>
-                <CookieBanner />
-                <Toaster />
-                <SupportChatWidget />
-                <VersionSwitcher />
-              </CartProvider>
-            </WishlistProvider>
-          </AuthProvider>
-        </MotionConfig>
+        <ReactLenis
+          root
+          options={{
+            anchors: true,
+            stopInertiaOnNavigate: true,
+            allowNestedScroll: true,
+            respectReducedMotion: true,
+          }}
+        >
+          <MotionConfig reducedMotion="user">
+            <AuthProvider>
+              <WishlistProvider>
+                <CartProvider>
+                  <Navbar />
+                  <CartDrawer />
+                  <main id="main-content">{children}</main>
+                  <CookieBanner />
+                  <Toaster />
+                  <SupportChatWidget />
+                  <VersionSwitcher />
+                </CartProvider>
+              </WishlistProvider>
+            </AuthProvider>
+          </MotionConfig>
+        </ReactLenis>
       </body>
     </html>
   );

@@ -21,7 +21,8 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  scroll-padding-top: 5.5rem;
   background: var(--bg-page);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
@@ -39,6 +40,43 @@ body {
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: #11100e; }
 ::-webkit-scrollbar-thumb { background: #62533c; border-radius: 8px; }
+
+.page-loading {
+  min-height: min(72svh, 760px);
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at center, #1c1914 0%, #100f0d 58%);
+}
+.brand-loader {
+  --loader-gold: #c8a66b;
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  color: #b9b2a4;
+}
+.brand-loader__mark { width: 76px; height: 76px; overflow: visible; }
+.brand-loader__orbit, .brand-loader__needle, .brand-loader__glyph {
+  fill: none;
+  stroke: var(--loader-gold);
+  stroke-width: .8;
+  vector-effect: non-scaling-stroke;
+}
+.brand-loader__orbit { stroke-dasharray: 4 5; opacity: .55; transform-origin: 36px 36px; animation: loader-orbit 12s linear infinite; }
+.brand-loader__needle { opacity: .26; stroke-dasharray: 2 5; }
+.brand-loader__glyph { stroke-width: 1.5; stroke-dasharray: 112; stroke-dashoffset: 112; animation: loader-stitch 2.4s ease-in-out infinite; }
+.brand-loader__stitch { fill: #f0d8a8; filter: drop-shadow(0 0 4px #c8a66b); animation: loader-pulse 1.6s ease-in-out infinite; }
+.brand-loader__label { font: 9px/1.4 var(--font-body), sans-serif; letter-spacing: .28em; text-transform: uppercase; }
+.brand-loader--compact { display: inline-grid; grid-auto-flow: column; align-items: center; gap: 8px; }
+.brand-loader--compact .brand-loader__mark { width: 22px; height: 22px; }
+.brand-loader--compact .brand-loader__label { font-size: 8px; }
+.brand-loader--compact .brand-loader__needle { display: none; }
+@keyframes loader-orbit { to { transform: rotate(360deg); } }
+@keyframes loader-stitch { 0%, 10% { stroke-dashoffset: 112; opacity: .35; } 70%, 100% { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes loader-pulse { 0%, 100% { opacity: .45; transform: scale(.8); } 50% { opacity: 1; transform: scale(1.25); } }
+@media (prefers-reduced-motion: reduce) {
+  .brand-loader__orbit, .brand-loader__glyph, .brand-loader__stitch { animation: none; }
+  .brand-loader__glyph { stroke-dashoffset: 0; }
+}
 
 .font-heading {
   font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;

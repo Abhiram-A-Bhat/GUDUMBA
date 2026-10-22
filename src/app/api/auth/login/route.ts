@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import db from "@/lib/db";
-import { createSession, sessionCookieOptions } from "@/lib/session";
+import { createSession, sessionCookieOptions, sessionConfigurationIsValid } from "@/lib/session";
 import { allowAuthAttempt } from "@/lib/rate-limit";
 import { getSupabase } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!sessionConfigurationIsValid()) {
+      return NextResponse.json({ error: "Server session configuration is missing." }, { status: 503 });
+    }
     if (!allowAuthAttempt(req, "login", 10, 15 * 60 * 1000)) {
       return NextResponse.json({ error: "Too many sign-in attempts. Try again in 15 minutes." }, { status: 429 });
     }
@@ -15,10 +18,10 @@ export async function POST(req: NextRequest) {
     const normalizedEmail = String(email).trim().toLowerCase();
 
     // 1. Direct Admin Credential Check
-    const adminEmail = (process.env.ADMIN_EMAIL || "admin@gudumba.in").toLowerCase();
-    const adminPass = process.env.ADMIN_PASSWORD || "Gudumba@2026!";
-    if (normalizedEmail === adminEmail && password === adminPass) {
-      const token = createSession({ id: "admin-master", email: adminEmail, name: "Gudumba Executive" });
+    const adminEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+    const adminPass = process.env.ADMIN_PASSWORD;
+    if (adminEmail && adminPass && normalizedEmail === adminEmail && password === adminPass) {
+      const token = createSession({ id: "admin-master", email: adminEmail, name: "Gudumba Executive", role: "admin" });
       const response = NextResponse.json({
         user: {
           id: "admin-master",
@@ -45,6 +48,7 @@ export async function POST(req: NextRequest) {
           id: u.id,
           email: u.email || normalizedEmail,
           name: u.user_metadata?.full_name || "Gudumba Collector",
+          role: "customer",
         });
 
         const response = NextResponse.json({
@@ -71,7 +75,12 @@ export async function POST(req: NextRequest) {
         } catch { passwordMatch = false; }
 
         if (passwordMatch) {
-          const token = createSession({ id: user.id as string, email: user.email as string, name: user.name as string });
+          const token = createSession({
+            id: user.id as string,
+            email: user.email as string,
+            name: user.name as string,
+            role: user.role === "admin" ? "admin" : "customer",
+          });
           const response = NextResponse.json({
             user: {
               id: user.id,

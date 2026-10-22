@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/auth-context";
 import { formatPrice } from "@/lib/utils";
 import Footer from "@/components/Footer";
 import { Package, User, LogOut } from "lucide-react";
+import BrandLoader from "@/components/BrandLoader";
 
 interface AccountOrder {
   id: string;
@@ -39,8 +40,8 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="pt-32 min-h-screen bg-[#100f0d] flex items-center justify-center text-xs font-mono tracking-widest text-[#666]">
-        VERIFYING SESSION...
+      <div className="pt-32 min-h-screen bg-[#100f0d] flex items-center justify-center">
+        <BrandLoader label="VERIFYING SESSION" />
       </div>
     );
   }
@@ -60,7 +61,7 @@ export default function AccountPage() {
               {user.name.toUpperCase()}
             </h1>
             <p className="text-xs text-[#777] font-mono mt-1">
-              {user.email} • ROLE: {user.role.toUpperCase()}
+              {user.email || user.phone || "MEMBER"} • ROLE: {user.role.toUpperCase()}
             </p>
           </div>
 
@@ -91,8 +92,8 @@ export default function AccountPage() {
             </h2>
 
             {fetchingOrders ? (
-              <div className="p-8 text-center text-xs text-[#666] font-mono">
-                FETCHING ORDERS...
+              <div className="p-8 flex justify-center">
+                <BrandLoader label="FETCHING ORDER ARCHIVE" compact />
               </div>
             ) : orders.length === 0 ? (
               <div className="p-12 bg-[#171512] border border-[#222] rounded-xs text-center">

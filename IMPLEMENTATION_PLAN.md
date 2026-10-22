@@ -39,6 +39,18 @@ This backlog is based on the current storefront, product detail, account, cart, 
 - Add support escalation and searchable FAQ content alongside the concierge.
 - Establish analytics for search, product views, wishlist actions, checkout, and conversion.
 
+### System architecture
+
+- Keep a single canonical production database and make any local database adapter an explicit development-only choice.
+- Move order creation, inventory reservation, and payment state changes into transactional database functions.
+- Make webhook handling idempotent using provider event IDs and persisted payment state transitions.
+- Replace SQLite-backed rate limits with a shared distributed store; the current local database cannot coordinate serverless instances.
+- Consolidate catalog and order persistence behind typed repositories instead of duplicating database-specific queries in routes and services.
+- Add schema migrations, runtime request validation, and a clear staging/production environment contract.
+- Add structured logs, error reporting, readiness checks, and alerts for database/payment/email failures.
+- Define session revocation and role-change behavior for signed access tokens.
+- Add backup/restore drills, retention rules, and data export/deletion workflows.
+
 ### Quality, accessibility, and performance
 
 - Audit keyboard flow, focus management, accessible names, and color contrast.
@@ -70,3 +82,22 @@ Connect delivery lookup, stock alerts, verified reviews, order tracking, returns
 ### Phase 4 — Launch readiness
 
 Complete accessibility and performance audits, critical-flow automation, API/payment review, and a factual review of customer-facing claims.
+
+### Phase 5 — Architecture hardening
+
+Use a single canonical production data store, transactional order and inventory operations, distributed rate limiting, idempotent payment events, schema validation/migrations, and operational monitoring. These changes need database migrations and provider-specific deployment configuration.
+
+### Architecture work implemented in this change
+
+- Make custom JWT sessions self-contained, so Supabase-authenticated customers no longer need a duplicate SQLite user row just to remain signed in.
+- Include the server-assigned role in the signed claim, validate all claim fields, and limit administrator sessions to eight hours.
+- Remove the built-in development admin username/password from login behavior and from the example environment file.
+- Fail authentication rate-limit checks closed when the local rate-limit store cannot persist an attempt; serverless deployments still need a shared store for consistent limits.
+- Remove embedded Paytm fallback credentials and reject callbacks before changing order state when their signature cannot be verified.
+- Add a server-only Supabase admin client boundary and document the server-only secret key configuration for future durable order operations.
+- Route phone OTP send and verification through same-origin server endpoints, validate Indian mobile numbers, limit attempts, and issue the site's own session cookie after verification.
+
+### Loading motion
+
+- Add a custom editorial loading mark inspired by Hairline's fine line art, recolored and drawn around the GUDUMBA monogram.
+- Use the mark on route transitions and account session/order loading states, with accessible status text and reduced-motion handling.

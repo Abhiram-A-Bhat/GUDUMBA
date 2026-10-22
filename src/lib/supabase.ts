@@ -16,6 +16,7 @@ export function getSupabase(): SupabaseClient | null {
   return supabaseInstance;
 }
 
+
 /**
  * Sign in with Google OAuth popup / redirect
  */
@@ -37,42 +38,3 @@ export async function signInWithGoogle() {
   return { data, error };
 }
 
-/**
- * Send Phone OTP (+91 for India)
- */
-export async function sendPhoneOtp(phone: string) {
-  const client = getSupabase();
-  if (!client) {
-    return {
-      data: null,
-      error: { message: "Supabase credentials are not configured in .env yet." },
-    };
-  }
-
-  const formatted = phone.startsWith("+") ? phone : `+91${phone.replace(/\D/g, "")}`;
-  const { data, error } = await client.auth.signInWithOtp({
-    phone: formatted,
-  });
-  return { data, error };
-}
-
-/**
- * Verify Phone OTP code
- */
-export async function verifyPhoneOtp(phone: string, token: string) {
-  const client = getSupabase();
-  if (!client) {
-    return {
-      data: null,
-      error: { message: "Supabase credentials are not configured in .env yet." },
-    };
-  }
-
-  const formatted = phone.startsWith("+") ? phone : `+91${phone.replace(/\D/g, "")}`;
-  const { data, error } = await client.auth.verifyOtp({
-    phone: formatted,
-    token,
-    type: "sms",
-  });
-  return { data, error };
-}

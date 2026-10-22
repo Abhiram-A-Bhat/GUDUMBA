@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       `).run(userId, cleanEmail, phone?.trim() || null, cleanName, passwordHash);
     } catch {}
 
-    const token = createSession({ id: userId, email: cleanEmail, name: cleanName });
+    const token = createSession({ id: userId, email: cleanEmail, name: cleanName, role: "customer" });
 
     const response = NextResponse.json({
       user: {

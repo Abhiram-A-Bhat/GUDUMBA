@@ -13,7 +13,8 @@ export async function POST(req: NextRequest) {
       paytmParams[key] = value.toString();
     });
 
-    const mkey = process.env.PAYTM_MERCHANT_KEY || "m8KtDYfUxi71LksK";
+    const mkey = process.env.PAYTM_MERCHANT_KEY;
+    if (!mkey) return NextResponse.redirect(new URL("/checkout?error=payment_unavailable", req.url));
     const checksum = paytmParams.CHECKSUMHASH;
 
     delete paytmParams.CHECKSUMHASH;
@@ -28,7 +29,11 @@ export async function POST(req: NextRequest) {
     const txnId = paytmParams.TXNID || "";
     const respMsg = paytmParams.RESPMSG || "";
 
-    const isSuccess = isSignatureValid && status === "TXN_SUCCESS";
+    if (!isSignatureValid || !orderNumber) {
+      console.warn("Rejected Paytm callback with invalid signature or missing order number");
+      return NextResponse.redirect(new URL("/checkout?error=payment_verification_failed", req.url));
+    }
+    const isSuccess = status === "TXN_SUCCESS";
 
     // Update SQLite
     try {
@@ -79,7 +84,7 @@ export async function POST(req: NextRequest) {
   </head>
   <body>
     <p>Processing your Gudumba order... redirecting...</p>
-    <script>window.location.href = "${targetUrl}";</script>
+      <script>window.location.replace(${JSON.stringify(targetUrl)});</script>
   </body>
 </html>`;
 

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { useToast } from "@/components/ui/Toaster";
-import { signInWithGoogle, sendPhoneOtp, verifyPhoneOtp } from "@/lib/supabase";
+import { signInWithGoogle } from "@/lib/supabase";
 import Footer from "@/components/Footer";
 import { Loader2, Phone, Mail, ArrowRight } from "lucide-react";
 
@@ -32,7 +32,7 @@ function GoogleIcon() {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
   const { toast } = useToast();
 
   const [authMethod, setAuthMethod] = useState<"email" | "phone">("email");
@@ -74,15 +74,19 @@ export default function LoginPage() {
     setErrorMsg("");
 
     try {
-      const { error } = await sendPhoneOtp(phone);
-      if (error) {
-        setErrorMsg(error.message);
-      } else {
+      const response = await fetch("/api/auth/phone/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) setErrorMsg(result.error || "Could not send the verification code.");
+      else {
         setOtpSent(true);
-        toast(`Verification OTP dispatched to ${phone}`, "success");
+        toast(`Verification OTP dispatched to +91 ${phone}`, "success");
       }
     } catch {
-      setErrorMsg("Phone OTP requires configured Supabase SMS provider (Twilio).");
+      setErrorMsg("Could not reach the sign-in service. Check your connection and try again.");
     } finally {
       setLoading(false);
     }
@@ -95,15 +99,20 @@ export default function LoginPage() {
     setErrorMsg("");
 
     try {
-      const { error } = await verifyPhoneOtp(phone, otp);
-      if (error) {
-        setErrorMsg(error.message);
-      } else {
+      const response = await fetch("/api/auth/phone/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, token: otp }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) setErrorMsg(result.error || "The verification code could not be confirmed.");
+      else {
+        setUser(result.user);
         toast("Verified successfully! Welcome to Gudumba.", "success");
         router.push("/account");
       }
     } catch {
-      setErrorMsg("Verification failed.");
+      setErrorMsg("Could not reach the sign-in service. Check your connection and try again.");
     } finally {
       setLoading(false);
     }

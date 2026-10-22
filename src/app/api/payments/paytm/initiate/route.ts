@@ -18,8 +18,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Order not found" }, { status: 404 });
     }
 
-    const mid = process.env.PAYTM_MID || "eluSCy54226242613261";
-    const mkey = process.env.PAYTM_MERCHANT_KEY || "m8KtDYfUxi71LksK";
+    const mid = process.env.PAYTM_MID;
+    const mkey = process.env.PAYTM_MERCHANT_KEY;
+    if (!mid || !mkey) {
+      return NextResponse.json({ error: "Paytm is not configured. Please choose another payment method." }, { status: 503 });
+    }
     const website = process.env.PAYTM_WEBSITE || "WEBSTAGING";
     const industryTypeId = process.env.PAYTM_INDUSTRY_TYPE_ID || "Retail";
     const channelId = process.env.PAYTM_CHANNEL_ID || "WEB";

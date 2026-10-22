@@ -206,17 +206,18 @@ export function consumeRateLimit(rateKey: string, limit: number, windowMs: numbe
       const row = db.prepare("SELECT attempts, window_started_at FROM auth_rate_limits WHERE rate_key = ?")
         .get(rateKey) as { attempts: number; window_started_at: number } | undefined;
       if (!row || now - row.window_started_at >= windowMs) {
-        db.prepare(`INSERT INTO auth_rate_limits (rate_key, attempts, window_started_at) VALUES (?, 1, ?)
+        const result = db.prepare(`INSERT INTO auth_rate_limits (rate_key, attempts, window_started_at) VALUES (?, 1, ?)
           ON CONFLICT(rate_key) DO UPDATE SET attempts = 1, window_started_at = excluded.window_started_at`)
           .run(rateKey, now);
-        return true;
+        return result.changes > 0;
       }
       if (row.attempts >= limit) return false;
-      db.prepare("UPDATE auth_rate_limits SET attempts = attempts + 1 WHERE rate_key = ?").run(rateKey);
-      return true;
+      const result = db.prepare("UPDATE auth_rate_limits SET attempts = attempts + 1 WHERE rate_key = ?").run(rateKey);
+      return result.changes > 0;
     })();
   } catch {
-    return true;
+    // Authentication must not become unlimited when the backing rate-limit store is unavailable.
+    return false;
   }
 }
 
